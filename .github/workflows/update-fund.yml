@@ -1,0 +1,86 @@
+name: Update Fund Status
+
+on:
+  schedule:
+    - cron: '0 * * * *'  # Каждый час
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      
+      - name: Install dependencies
+        run: pip install requests
+      
+      - name: Fetch donations
+        env:
+          DA_TOKEN: ${{ secrets.DONATIONALERTS_TOKEN }}
+        run: |
+          python << 'EOF'
+          import requests
+          import json
+          import os
+          from datetime import datetime
+
+          token = os.environ['DA_TOKEN']
+          headers = {"Authorization": f"Bearer {token}"}
+          
+          try:
+              resp = requests.get(
+                  "https://www.donationalerts.com/api/v1/alerts/donations",
+                  headers=headers,
+                  params={"page_size": 100, "currency": "RUB"},
+                  timeout=30
+              )
+              
+              if resp.status_code == 200:
+                  data = resp.json()
+                  donations = data.get("data", [])
+                  
+                  total = sum(
+                      float(d["amount"]) 
+                      for d in donations 
+                      if d.get("currency") == "RUB"
+                  )
+                  
+                  recent = []
+                  for d in donations[:5]:
+                      recent.append({
+                          "name": d.get("username", "Аноним")[:20],
+                          "amount": float(d.get("amount", 0)),
+                          "message": d.get("message", "")[:30]
+                      })
+                  
+                  result = {
+                      "current": total,
+                      "goal": 20000,
+                      "currency": "₽",
+                      "recent": recent,
+                      "updated": datetime.now().isoformat(),
+                      "percent": min(int((total / 20000) * 100), 100)
+                  }
+                  
+                  with open('fund.json', 'w', encoding='utf-8') as f:
+                      json.dump(result, f, ensure_ascii=False, indent=2)
+                  
+                  print(f"✅ Обновлено: {total}₽")
+              else:
+                  print(f"❌ Ошибка API: {resp.status_code}")
+          except Exception as e:
+              print(f"❌ Ошибка: {e}")
+          EOF
+      
+      - name: Commit changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add fund.json
+          git diff --quiet && git diff --staged --quiet || git commit -m "Update fund status"
+          git push
