@@ -121,11 +121,29 @@
             width: 100%;
         }
 
-        /* Hero секция */
+        /* Hero секция с талисманом */
         .hero {
             text-align: center;
-            padding: 150px 20px;
+            padding: 100px 20px 150px;
             position: relative;
+            overflow: hidden;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+
+        .hero-text {
+            flex: 1;
+            min-width: 300px;
+            max-width: 600px;
+            z-index: 2;
         }
 
         .hero h1 {
@@ -146,9 +164,78 @@
             font-size: 24px;
             color: #888;
             margin-bottom: 40px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+            line-height: 1.5;
+        }
+
+        /* Стили для талисмана (чипсона) */
+        .hero-mascot {
+            flex: 0 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .mascot-container {
+            position: relative;
+            width: 350px;
+            height: 350px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mascot-img {
+            width: 100%;
+            height: auto;
+            max-width: 350px;
+            animation: mascotFloat 6s ease-in-out infinite;
+            filter: drop-shadow(0 0 30px rgba(0,255,136,0.4));
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .mascot-img:hover {
+            transform: scale(1.05) rotate(3deg);
+            filter: drop-shadow(0 0 50px rgba(0,255,136,0.6));
+        }
+
+        /* Анимация плавающего дракончика */
+        @keyframes mascotFloat {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            25% {
+                transform: translateY(-15px) rotate(2deg);
+            }
+            50% {
+                transform: translateY(0) rotate(0deg);
+            }
+            75% {
+                transform: translateY(-10px) rotate(-2deg);
+            }
+        }
+
+        /* Музыкальные нотки вокруг талисмана */
+        .music-note {
+            position: absolute;
+            font-size: 24px;
+            opacity: 0;
+            animation: noteFloat 4s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .note-1 { top: 10%; left: 10%; animation-delay: 0s; }
+        .note-2 { top: 20%; right: 5%; animation-delay: 1.3s; }
+        .note-3 { bottom: 20%; left: 5%; animation-delay: 2.6s; }
+
+        @keyframes noteFloat {
+            0%, 100% {
+                opacity: 0;
+                transform: translateY(0) scale(0.5);
+            }
+            50% {
+                opacity: 0.8;
+                transform: translateY(-30px) scale(1) rotate(20deg);
+            }
         }
 
         .cta-button {
@@ -164,6 +251,7 @@
             box-shadow: 0 10px 30px rgba(0,255,136,0.3);
             border: none;
             cursor: pointer;
+            margin: 5px;
         }
 
         .cta-button:hover {
@@ -175,7 +263,6 @@
             background: transparent;
             color: #00ff88;
             border: 2px solid #00ff88;
-            margin-left: 20px;
         }
 
         .cta-button.secondary:hover {
@@ -453,6 +540,7 @@
             display: flex;
             justify-content: center;
             gap: 30px;
+            flex-wrap: wrap;
         }
 
         .social-links a {
@@ -508,12 +596,40 @@
             font-family: monospace;
         }
 
+        /* Маленький талисман в шапке (опционально) */
+        .header-mascot {
+            display: none;
+        }
+
         /* Адаптивность */
+        @media (max-width: 968px) {
+            .hero-container {
+                flex-direction: column-reverse;
+                gap: 40px;
+            }
+            
+            .hero h1 { 
+                font-size: 48px; 
+            }
+            
+            .mascot-container {
+                width: 250px;
+                height: 250px;
+            }
+            
+            .mascot-img {
+                max-width: 250px;
+            }
+        }
+
         @media (max-width: 768px) {
-            .hero h1 { font-size: 42px; }
+            .hero { padding: 60px 20px 100px; }
+            .hero h1 { font-size: 36px; }
+            .hero p { font-size: 18px; }
             nav { display: none; }
             .features { padding: 50px 20px; }
-            .cta-button.secondary { margin-left: 0; margin-top: 20px; display: block; }
+            .mascot-container { width: 200px; height: 200px; }
+            .mascot-img { max-width: 200px; }
         }
     </style>
 </head>
@@ -533,19 +649,34 @@
     </header>
 
     <section class="hero">
-        <h1>Музыка без повторов</h1>
-        <p>Discord-бот с искусственным интеллектом (ну почти), который находит треки от 1к просмотров и не забывает про твои любимые brazilian phonk (шутка, на самом деле, там тысячи тысяч вариантов)</p>
-        <div>
-            <a href="https://discord.com/oauth2/authorize?client_id=1470582581526528183&permissions=8&integration_type=0&scope=applications.commands+bot" class="cta-button" target="_blank">
-                ➕ Добавить на сервер
-            </a>
-            <a href="https://t.me/jsickwell" class="cta-button secondary" target="_blank">
-                💬 Написать разрабу
-            </a>
+        <div class="hero-container">
+            <div class="hero-text">
+                <h1>Музыка без повторов</h1>
+                <p>Discord-бот с искусственным интеллектом (ну почти), который находит треки от 1к просмотров и не забывает про твои любимые brazilian phonk (шутка, на самом деле, там тысячи тысяч вариантов)</p>
+                <div>
+                    <a href="https://discord.com/oauth2/authorize?client_id=1470582581526528183&permissions=8&integration_type=0&scope=applications.commands+bot" class="cta-button" target="_blank">
+                        ➕ Добавить на сервер
+                    </a>
+                    <a href="https://t.me/jsickwell" class="cta-button secondary" target="_blank">
+                        💬 Написать разрабу
+                    </a>
+                </div>
+                <p style="margin-top: 30px; font-size: 14px; color: #555;">
+                    Sickwell_music_bot v4.0 Smart random Edition • Пока не работает 24/7, только когда разраб онлайн • Присоединяйся!
+                </p>
+            </div>
+            
+            <!-- Талисман (чипсон) -->
+            <div class="hero-mascot">
+                <div class="mascot-container">
+                    <img src="music.png" alt="Sickwell Music Bot Mascot" class="mascot-img" title="Привет! Я чипсон, маскот бота 🎵">
+                    <!-- Декоративные нотки -->
+                    <span class="music-note note-1">🎵</span>
+                    <span class="music-note note-2">🎶</span>
+                    <span class="music-note note-3">🎧</span>
+                </div>
+            </div>
         </div>
-        <p style="margin-top: 30px; font-size: 14px; color: #555;">
-            Sickwell_music_bot v4.0 Smart random Edition • Пока не работает 24/7, только когда разраб онлайн • Присоединяйся!
-        </p>
     </section>
 
     <section class="fund-section" id="fund">
