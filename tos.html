@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Условия использования - Sickwell Music Bot</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(45deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%);
+        }
+
+        header {
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #333;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            background: linear-gradient(45deg, #00ff88, #00ccff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo::before {
+            content: "🎵";
+            font-size: 30px;
+            -webkit-text-fill-color: initial;
+        }
+
+        .back-btn {
+            color: #00ff88;
+            text-decoration: none;
+            padding: 10px 25px;
+            border: 1px solid #00ff88;
+            border-radius: 25px;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .back-btn:hover {
+            background: rgba(0,255,136,0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,255,136,0.2);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .content-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid #333;
+            border-radius: 20px;
+            padding: 50px;
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            font-size: 42px;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #fff 0%, #00ff88 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 18px;
+        }
+
+        h2 {
+            color: #00ff88;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            font-size: 24px;
+            border-left: 4px solid #00ff88;
+            padding-left: 15px;
+        }
+
+        p {
+            color: #aaa;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        ul {
+            margin-left: 20px;
+            margin-bottom: 20px;
+            color: #aaa;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        strong {
+            color: #fff;
+        }
+
+        .highlight-box {
+            background: rgba(0,255,136,0.05);
+            border: 1px solid rgba(0,255,136,0.2);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        .highlight-box p {
+            margin: 0;
+            color: #00ff88;
+        }
+
+        .last-updated {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid #333;
+            color: #666;
+            font-size: 14px;
+            font-style: italic;
+        }
+
+        footer {
+            text-align: center;
+            padding: 50px 20px;
+            background: #000;
+            border-top: 1px solid #333;
+            margin-top: 80px;
+        }
+
+        .footer-links {
+            margin: 25px 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #888;
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 1px solid #333;
+            border-radius: 20px;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .footer-links a:hover {
+            color: #00ff88;
+            border-color: #00ff88;
+            background: rgba(0,255,136,0.05);
+        }
+
+        .footer-links a.active {
+            color: #00ff88;
+            border-color: #00ff88;
+        }
+
+        .copyright {
+            color: #444;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .contact {
+            color: #666;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .contact a {
+            color: #00ff88;
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            header { padding: 15px 20px; }
+            .container { margin: 30px auto; }
+            .content-card { padding: 30px 20px; }
+            h1 { font-size: 32px; }
+            h2 { font-size: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+
+    <header>
+        <a href="index.html" class="logo">Sickwell Music</a>
+        <a href="index.html" class="back-btn">← Назад на главную</a>
+    </header>
+
+    <div class="container">
+        <div class="content-card">
+            <h1>Условия использования</h1>
+            <p class="subtitle">Sickwell Music Bot v4.0 — правила игры</p>
+
+            <div class="highlight-box">
+                <p>Используя бота, вы соглашаетесь с этими правилами. Если не согласны — не используйте. Просто, как бочка пива.</p>
+            </div>
+
+            <h2>1. Что это вообще такое</h2>
+            <p>Sickwell_music — это Discord-бот для воспроизведения музыки с фишками: умный рандом, фильтр по просмотрам, живая очередь с прогресс-баром и панель управления.</p>
+
+            <h2>2. Что нельзя делать</h2>
+            <ul>
+                <li>Использовать бота для нарушения правил Discord или закона РФ/других стран</li>
+                <li>Спамить командами до поломки (DDOS'ить бота, короче)</li>
+                <li>Пытаться взломать код или токены (хотя они в .env, но всё же)</li>
+                <li>Воспроизводить NSFW контент в неподходящих каналах (ответственность на админе сервера)</li>
+            </ul>
+
+            <h2>3. Музыка и авторские права</h2>
+            <p>Бот использует YouTube как источник. Мы не храним музыку, не раздаём файлы, только стримим. Если ваш трек попал в ротацию и вы недовольны — пишите YouTube, не нам.</p>
+            <p><strong>Админ сервера несёт ответственность</strong> за контент, который включают участники через бота.</p>
+
+            <h2>4. Работоспособность</h2>
+            <p>Бот работает "как есть". Мы не гарантируем 100% аптайм (особенно пока на ПК разраба, а не на Raspberry Pi). Донаты идут на железо, но это не подписка — гарантий нет, только надежда и кофе.</p>
+
+            <h2>5. Изменения условий</h2>
+            <p>Мы можем обновлять эти правила. Продолжая использовать бота после изменений — вы с ними соглашаетесь. Следите за обновлениями в Telegram: <a href="https://t.me/jsickwell" style="color: #00ff88; text-decoration: none;">@jsickwell</a></p>
+
+            <h2>6. Контакты</h2>
+            <p>Вопросы, жалобы, предложения, спам:</p>
+            <p><strong>Telegram:</strong> <a href="https://t.me/jsickwell" style="color: #00ff88; text-decoration: none;">@jsickwell</a> (ЦНИ — Центр Нереализованных Идей)</p>
+
+            <div class="last-updated">
+                Последнее обновление: 10 февраля 2026 г.<br>
+                Версия: 4.0 (Smart random Edition)
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p style="font-size: 20px; margin-bottom: 10px;">🎵 Sickwell Music Bot</p>
+        
+        <div class="footer-links">
+            <a href="index.html">Главная</a>
+            <a href="tos.html" class="active">Условия использования</a>
+            <a href="privacy.html">Политика конфиденциальности</a>
+        </div>
+
+        <p class="contact">Контакт: <a href="https://t.me/jsickwell">t.me/jsickwell</a> (ЦНИ)</p>
+        <p class="copyright">© 2026 Sickwell Music Bot. Все права защищены.</p>
+    </footer>
+</body>
+</html>

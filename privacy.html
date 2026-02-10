@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Политика конфиденциальности - Sickwell Music Bot</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(45deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%);
+        }
+
+        header {
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #333;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            background: linear-gradient(45deg, #00ff88, #00ccff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo::before {
+            content: "🎵";
+            font-size: 30px;
+            -webkit-text-fill-color: initial;
+        }
+
+        .back-btn {
+            color: #00ff88;
+            text-decoration: none;
+            padding: 10px 25px;
+            border: 1px solid #00ff88;
+            border-radius: 25px;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .back-btn:hover {
+            background: rgba(0,255,136,0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,255,136,0.2);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .content-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid #333;
+            border-radius: 20px;
+            padding: 50px;
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            font-size: 42px;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #fff 0%, #00ccff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 18px;
+        }
+
+        h2 {
+            color: #00ccff;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            font-size: 24px;
+            border-left: 4px solid #00ccff;
+            padding-left: 15px;
+        }
+
+        p {
+            color: #aaa;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        ul {
+            margin-left: 20px;
+            margin-bottom: 20px;
+            color: #aaa;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        strong {
+            color: #fff;
+        }
+
+        .highlight-box {
+            background: rgba(0,204,255,0.05);
+            border: 1px solid rgba(0,204,255,0.2);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        .highlight-box p {
+            margin: 0;
+            color: #00ccff;
+        }
+
+        .data-item {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid #222;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .data-item::before {
+            content: "📋";
+            font-size: 24px;
+        }
+
+        .last-updated {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid #333;
+            color: #666;
+            font-size: 14px;
+            font-style: italic;
+        }
+
+        footer {
+            text-align: center;
+            padding: 50px 20px;
+            background: #000;
+            border-top: 1px solid #333;
+            margin-top: 80px;
+        }
+
+        .footer-links {
+            margin: 25px 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #888;
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 1px solid #333;
+            border-radius: 20px;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .footer-links a:hover {
+            color: #00ccff;
+            border-color: #00ccff;
+            background: rgba(0,204,255,0.05);
+        }
+
+        .footer-links a.active {
+            color: #00ccff;
+            border-color: #00ccff;
+        }
+
+        .copyright {
+            color: #444;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .contact {
+            color: #666;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .contact a {
+            color: #00ff88;
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            header { padding: 15px 20px; }
+            .container { margin: 30px auto; }
+            .content-card { padding: 30px 20px; }
+            h1 { font-size: 32px; }
+            h2 { font-size: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+
+    <header>
+        <a href="index.html" class="logo">Sickwell Music</a>
+        <a href="index.html" class="back-btn">← Назад на главную</a>
+    </header>
+
+    <div class="container">
+        <div class="content-card">
+            <h1>Политика конфиденциальности</h1>
+            <p class="subtitle">Мы не шпионим, мы просто играем музыку</p>
+
+            <div class="highlight-box">
+                <p>Кратко: мы храним минимум данных, ничего не продаём, не следим за вами. Бот нужен для музыки, не для сбора инфы.</p>
+            </div>
+
+            <h2>Что мы собираем (и зачем)</h2>
+            
+            <div class="data-item">
+                <div>
+                    <strong style="color: #fff;">ID сервера Discord</strong><br>
+                    <span style="color: #888; font-size: 14px;">Чтобы знать, где какая очередь играет. Удаляется при перезапуске бота.</span>
+                </div>
+            </div>
+
+            <div class="data-item">
+                <div>
+                    <strong style="color: #fff;">ID канала и сообщения</strong><br>
+                    <span style="color: #888; font-size: 14px;">Чтобы обновлять панель управления (прогресс-бар, кнопки). Только для текущей сессии.</span>
+                </div>
+            </div>
+
+            <div class="data-item">
+                <div>
+                    <strong style="color: #fff;">История очереди (20 треков)</strong><br>
+                    <span style="color: #888; font-size: 14px;">Чтобы работали кнопки ⏮️ (предыдущий трек) и 📜 (история). Хранится в RAM, не в базе данных.</span>
+                </div>
+            </div>
+
+            <div class="data-item">
+                <div>
+                    <strong style="color: #fff;">Запросы поиска</strong><br>
+                    <span style="color: #888; font-size: 14px;">Временно, только чтобы найти и включить трек. Не сохраняем историю поисков.</span>
+                </div>
+            </div>
+
+            <h2>Что мы НЕ собираем</h2>
+            <ul>
+                <li>Email'ы, пароли, личные сообщения</li>
+                <li>Историю прослушиваний (кроме текущей сессии)</li>
+                <li>IP-адреса или геолокацию</li>
+                <li>Cookies (сайт статичный, без трекеров)</li>
+            </ul>
+
+            <h2>DonationAlerts</h2>
+            <p>При донате через DonationAlerts мы видим:</p>
+            <ul>
+                <li>Ваше имя (как указано в платеже)</li>
+                <li>Сумму и сообщение (если написали)</li>
+                <li>Эти данные отображаются на сайте фонда и в Discord-канале</li>
+            </ul>
+            <p>Хотите анонимность? Укажите в сообщении доната "анонимно" или напишите нам — уберём из списка.</p>
+
+            <h2>Безопасность</h2>
+            <p>Токены и ключи API хранятся в защищённых переменных окружения (.env), не в коде. Код бота приватный, репозиторий публичный только для статики (сайт).</p>
+
+            <h2>Ваши права</h2>
+            <p>Вы можете в любой момент:</p>
+            <ul>
+                <li>Удалить бота с сервера — все данные сервера тут же удалятся из памяти</li>
+                <li>Попросить удалить информацию о донате из публичного списка</li>
+                <li>Узнать, какие данные есть (хотя их почти нет)</li>
+            </ul>
+
+            <h2>Контакт</h2>
+            <p>По вопросам приватности:</p>
+            <p><strong>Telegram:</strong> <a href="https://t.me/jsickwell" style="color: #00ff88; text-decoration: none;">@jsickwell</a></p>
+
+            <div class="last-updated">
+                Последнее обновление: 10 февраля 2026 г.<br>
+                ЦНИ (Центр Нереализованных Идей) ценит вашу приватность.
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p style="font-size: 20px; margin-bottom: 10px;">🎵 Sickwell Music Bot</p>
+        
+        <div class="footer-links">
+            <a href="index.html">Главная</a>
+            <a href="tos.html">Условия использования</a>
+            <a href="privacy.html" class="active">Политика конфиденциальности</a>
+        </div>
+
+        <p class="contact">Контакт: <a href="https://t.me/jsickwell">t.me/jsickwell</a> (ЦНИ)</p>
+        <p class="copyright">© 2026 Sickwell Music Bot. Все права защищены.</p>
+    </footer>
+</body>
+</html>
