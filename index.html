@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sickwell Music Bot v4.5 | Бот который знает твой вайб</title>
+    <title>Sickwell Music Bot v4.6 | Слэш-команды и новые фильтры</title>
     <style>
         * {
             margin: 0;
@@ -308,7 +308,7 @@
 
         .thermometer-fill {
             height: 100%;
-            width: 0%; /* JS установит процент */
+            width: 0%;
             background: linear-gradient(90deg, #00ff88 0%, #00ccff 50%, #ffd700 100%);
             display: flex;
             align-items: center;
@@ -457,7 +457,24 @@
             line-height: 1.6;
         }
 
-        /* Командная строка - РЕАЛЬНЫЕ КОМАНДЫ */
+        rarity-tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+            margin: 2px;
+            font-family: monospace;
+        }
+
+        .rarity-micro { background: #2d5016; color: #a3e635; }
+        .rarity-small { background: #1e40af; color: #60a5fa; }
+        .rarity-medium { background: #7c3aed; color: #c4b5fd; }
+        .rarity-large { background: #dc2626; color: #fca5a5; }
+        .rarity-mega { background: #fbbf24; color: #92400e; }
+        .rarity-deep { background: #0891b2; color: #a5f3fc; }
+
+        /* Командная строка - v4.6 HYBRID COMMANDS */
         .commands-section {
             padding: 100px 20px;
             background: rgba(0,0,0,0.3);
@@ -495,7 +512,7 @@
 
         .terminal-body {
             padding: 20px;
-            max-height: 500px;
+            max-height: 600px;
             overflow-y: auto;
         }
 
@@ -506,6 +523,17 @@
         }
 
         .command-line::before {
+            content: "discord:~$ ";
+            color: #666;
+        }
+
+        .slash-command {
+            color: #00ccff;
+            margin: 15px 0 5px 0;
+            font-weight: bold;
+        }
+
+        .slash-command::before {
             content: "discord:~$ ";
             color: #666;
         }
@@ -525,6 +553,18 @@
             padding: 2px 6px;
             border-radius: 4px;
             font-family: monospace;
+        }
+
+        .hybrid-badge {
+            display: inline-block;
+            background: linear-gradient(90deg, #00ff88, #00ccff);
+            color: #000;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: bold;
+            margin-left: 10px;
+            vertical-align: middle;
         }
 
         /* Футер */
@@ -596,6 +636,13 @@
             font-family: monospace;
         }
 
+        .update-date {
+            color: #00ff88;
+            font-size: 12px;
+            margin-top: 5px;
+            opacity: 0.7;
+        }
+
         /* Маленький талисман в шапке (опционально) */
         .header-mascot {
             display: none;
@@ -639,7 +686,7 @@
     </div>
 
     <header>
-        <div class="logo">Sickwell Music v4.5</div>
+        <div class="logo">Sickwell Music v4.6</div>
         <nav>
             <a href="#features">Фичи</a>
             <a href="#commands">Команды</a>
@@ -652,7 +699,7 @@
         <div class="hero-container">
             <div class="hero-text">
                 <h1>Музыка без повторов</h1>
-                <p>Discord-бот с искусственным интеллектом (ну почти), который находит треки от 1к просмотров и не забывает про твои любимые brazilian phonk (шутка, на самом деле, там тысячи тысяч вариантов)</p>
+                <p>Discord-бот с гибридными командами (и /, и !). Новые фильтры редкости: от underground (1к просмотров) до viral (100млн+). Умный рандом теперь точнее.</p>
                 <div>
                     <a href="https://discord.com/oauth2/authorize?client_id=1470582581526528183&permissions=8&integration_type=0&scope=applications.commands+bot" class="cta-button" target="_blank">
                         ➕ Добавить на сервер
@@ -662,7 +709,7 @@
                     </a>
                 </div>
                 <p style="margin-top: 30px; font-size: 14px; color: #555;">
-                    Sickwell_music_bot v4.5 Smart random Edition • 24/7 • Присоединяйся!
+                    Sickwell_music_bot v4.6 Slash Commands Update • 24/7 • Hybrid Commands
                 </p>
             </div>
             
@@ -698,15 +745,15 @@
             
             <div class="fund-stats">
                 <div class="stat-box">
-                    <div class="stat-value" id="currentAmount">300₽</div>
+                    <div class="stat-value" id="currentAmount">0₽</div>
                     <div class="stat-label">Собрано</div>
                 </div>
                 <div class="stat-box">
-                    <div class="stat-value">20,000₽</div>
+                    <div class="stat-value" id="goalAmount">20,000₽</div>
                     <div class="stat-label">Цель (Raspberry Pi 4)</div>
                 </div>
                 <div class="stat-box">
-                    <div class="stat-value" id="remainingAmount">20,000₽</div>
+                    <div class="stat-value" id="remainingAmount">0₽</div>
                     <div class="stat-label">Осталось</div>
                 </div>
             </div>
@@ -723,24 +770,28 @@
         <div class="features-grid">
             <div class="feature-card">
                 <div class="feature-icon">🎲</div>
-                <h3 class="feature-title">Умный Рандом</h3>
+                <h3 class="feature-title">Умный Рандом v4.6</h3>
                 <p class="feature-desc">Комбинирует теги со случайными модификаторами: год (2024, 2023), стиль (slowed, reverb, nightcore), настроение (sad, aggressive, chill). Не повторяет последние 20 жанров.</p>
             </div>
             
             <div class="feature-card">
                 <div class="feature-icon">👁️</div>
-                <h3 class="feature-title">Фильтр по просмотрам</h3>
-                <p class="feature-desc">
-                    <span class="cmd-syntax">!random deep</span> — редкие треки 1к-500к просмотров<br>
-                    <span class="cmd-syntax">!random medium</span> — средние 10к-2млн<br>
-                    <span class="cmd-syntax">!random any</span> — без фильтра
+                <h3 class="feature-title">6 уровней редкости</h3>
+                <p class="feature-desc" style="font-size: 13px; line-height: 1.8;">
+                    <span class="rarity-tag rarity-micro">micro</span> 1к-50к (Underground)<br>
+                    <span class="rarity-tag rarity-small">small</span> 50к-250к (Growing)<br>
+                    <span class="rarity-tag rarity-medium">medium</span> 250к-1млн (Medium)<br>
+                    <span class="rarity-tag rarity-large">large</span> 1млн-100млн (Popular)<br>
+                    <span class="rarity-tag rarity-mega">mega</span> 100млн+ (Viral)<br>
+                    <span class="rarity-tag rarity-deep">deep</span> 1к-500к (Deep classic)<br>
+                    <code style="color: #00ff88;">!random micro</code> или <code style="color: #00ccff;">/random rarity:micro</code>
                 </p>
             </div>
             
             <div class="feature-card">
                 <div class="feature-icon">📜</div>
                 <h3 class="feature-title">Умная очередь</h3>
-                <p class="feature-desc">Выпадающий список для выбора любого трека из очереди. История последних 20 треков (кнопка ⏮️). Перемешивание (🔀).</p>
+                <p class="feature-desc">Выпадающий список для выбора любого трека из очереди. История последних 20 треков (кнопка ⏮️). Перемешивание (🔀). Мульти-удаление до 10 треков.</p>
             </div>
             
             <div class="feature-card">
@@ -756,49 +807,64 @@
             </div>
             
             <div class="feature-card">
-                <div class="feature-icon">💚</div>
-                <h3 class="feature-title">Open Source Vibes</h3>
-                <p class="feature-desc">Прозрачный фонд, честная статистика, никаких paywall. Только музыка и кофе для разраба. Код не открыт, но душа открыта.</p>
+                <div class="feature-icon">⚡</div>
+                <h3 class="feature-title">Hybrid Commands</h3>
+                <p class="feature-desc">Все команды работают и как <code style="color: #ffd700;">!play</code>, и как <code style="color: #ffd700;">/play</code>. Выбирай удобный формат. Slash-команды с автокомплитом параметров.</p>
             </div>
         </div>
     </section>
 
     <section class="commands-section" id="commands">
-        <h2 class="section-title">Реальные команды</h2>
+        <h2 class="section-title">Команды v4.6 <span class="hybrid-badge">HYBRID</span></h2>
         
         <div class="terminal">
             <div class="terminal-header">
                 <div class="terminal-btn"></div>
                 <div class="terminal-btn"></div>
                 <div class="terminal-btn"></div>
-                <span style="color: #666; margin-left: 10px; font-family: sans-serif; font-size: 14px;">Terminal - Discord Bot Commands</span>
+                <span style="color: #666; margin-left: 10px; font-family: sans-serif; font-size: 14px;">Terminal - Hybrid Commands (Prefix + Slash)</span>
             </div>
             
             <div class="terminal-body">
                 <div class="command-line">!start</div>
+                <div class="slash-command">/start</div>
                 <div class="response">Подключает бота к голосовому каналу и показывает панель управления с кнопками</div>
 
                 <div class="command-line">!play [запрос или ссылка]</div>
-                <div class="response">Ищет трек на YouTube и добавляет в очередь. Пример: !play phonk 2024</div>
+                <div class="slash-command">/play query:[запрос]</div>
+                <div class="response">Ищет трек на YouTube и добавляет в очередь. Пример: !play phonk 2024 или /play query:phonk 2024</div>
 
-                <div class="command-line">!random [any|medium|deep]</div>
+                <div class="command-line">!random [rarity]</div>
+                <div class="slash-command">/random rarity:[micro/small/medium/large/mega/deep/any]</div>
                 <div class="response">
                     Добавляет случайный трек по фильтру просмотров:<br>
-                    • any — любые просмотры (дефолт)<br>
-                    • medium — от 10к до 2млн просмотров<br>
-                    • deep — от 1к до 500к (редкие, андерграунд)
+                    • <span class="rarity-tag rarity-micro">micro</span> 1к-50к (Underground)<br>
+                    • <span class="rarity-tag rarity-small">small</span> 50к-250к (Growing)<br>
+                    • <span class="rarity-tag rarity-medium">medium</span> 250к-1млн<br>
+                    • <span class="rarity-tag rarity-large">large</span> 1млн-100млн (Popular)<br>
+                    • <span class="rarity-tag rarity-mega">mega</span> 100млн+ (Viral)<br>
+                    • <span class="rarity-tag rarity-deep">deep</span> 1к-500к (классика)<br>
+                    • any — любые просмотры (дефолт)
                 </div>
 
                 <div class="command-line">!addrandom [количество] [rarity]</div>
-                <div class="response">Добавляет несколько случайных треков. Пример: !addrandom 10 deep (добавит 10 редких треков)</div>
+                <div class="slash-command">/addrandom count:[N] rarity:[rarity]</div>
+                <div class="response">Добавляет несколько случайных треков. Пример: !addrandom 5 micro или /addrandom count:5 rarity:micro</div>
 
                 <div class="command-line">!queue</div>
+                <div class="slash-command">/queue</div>
                 <div class="response">Показывает текущую очередь с прогресс-баром играющего трека, историю и кнопки управления</div>
 
+                <div class="command-line">!search [запрос]</div>
+                <div class="slash-command">/search query:[запрос]</div>
+                <div class="response">Ищет 5 вариантов на YouTube, предлагает выбрать номером (1-5). Теперь и через слэш!</div>
+
                 <div class="command-line">!skip / !previous</div>
+                <div class="slash-command">/skip | /previous</div>
                 <div class="response">Пропускает текущий трек или возвращает предыдущий из истории (20 последних треков)</div>
 
-                <div class="command-line">!loop [off|one|all]</div>
+                <div class="command-line">!loop [off/one/all]</div>
+                <div class="slash-command">/loop mode:[off/one/all]</div>
                 <div class="response">
                     Режим повтора:<br>
                     • one — повторять текущий трек<br>
@@ -807,18 +873,19 @@
                 </div>
 
                 <div class="command-line">!shuffle</div>
+                <div class="slash-command">/shuffle</div>
                 <div class="response">Перемешивает очередь в случайном порядке</div>
 
                 <div class="command-line">!remove [номер]</div>
-                <div class="response">Удаляет трек из очереди по номеру. Пример: !remove 3</div>
+                <div class="slash-command">/remove position:[номер]</div>
+                <div class="response">Удаляет трек из очереди по номеру. Для мульти-удаления используй кнопку 🗑️ в панели очереди (до 10 треков)</div>
 
                 <div class="command-line">!fund</div>
+                <div class="slash-command">/fund</div>
                 <div class="response">Показывает статус сбора на Raspberry Pi: прогресс-бар, собранная сумма, топ донатеров</div>
 
-                <div class="command-line">!search [запрос]</div>
-                <div class="response">Ищет 5 вариантов на YouTube, предлагает выбрать номером (1-5) или отменить</div>
-
                 <div class="command-line">!pause / !resume / !stop</div>
+                <div class="slash-command">/pause | /resume | /stop</div>
                 <div class="response">Базовое управление: пауза, продолжить, полная остановка и выход из канала</div>
             </div>
         </div>
@@ -826,7 +893,7 @@
 
 <footer>
     <p style="font-size: 24px; margin-bottom: 10px;">🎵 Sickwell Music Bot</p>
-    <p style="color: #666;">Made with passion by <strong>ЦНИ</strong> (Центр Нереализованых Идей)</p>
+    <p style="color: #666;">Made with passion by <strong>ЦНИ</strong> (Центр Нереализованных Идей)</p>
     
     <!-- Навигационные ссылки -->
     <div style="margin: 25px 0; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
@@ -850,16 +917,20 @@
 
     <p class="copyright">© 2026 Sickwell Music Bot. Все права защищены.</p>
     <p class="copyright" style="margin-top: 5px; font-size: 12px;">Контакт: <a href="https://discord.gg/GPWX58cbEX" style="color: #5865F2; text-decoration: none;">discord.gg/GPWX58cbEX</a> (ЦНИ)</p>
-    <p class="version">v4.5 (Smart random Edition) • Discord • Sickwell_music</p>
+    <p class="version">v4.6 (Slash Commands Update) • Discord • Sickwell_music</p>
+    <p class="update-date">Обновлено: 22.02.2026</p>
 </footer>
 
     <script>
         // ==========================================
-        // НАСТРОЙКИ ФОНДА - МЕНЯЙ ТУТ
+        // НАСТРОЙКИ ФОНДА - МЕНЯЙ ТОЛЬКО ЗДЕСЬ
         // ==========================================
-        const FUND_GOAL = 20000;      // Цель в рублях
-        const FUND_CURRENT = 100;       // Текущая сумма (меняй при донатах)
+        const FUND_CONFIG = {
+            GOAL: 20000,      // Цель в рублях
+            CURRENT: 300      // <<< МЕНЯЙ ТУТ ТОЛЬКО ЭТУ ЦИФРУ (приходит донат → меняешь тут)
+        };
         // ==========================================
+        // Всё остальное обновится автоматически
 
         // Генерация частиц
         const particlesContainer = document.getElementById('particles');
@@ -885,11 +956,11 @@
 
         // Расчет и отображение фонда
         function updateFund() {
-            const percent = Math.min(Math.round((FUND_CURRENT / FUND_GOAL) * 100), 100);
-            const remaining = Math.max(FUND_GOAL - FUND_CURRENT, 0);
+            const percent = Math.min(Math.round((FUND_CONFIG.CURRENT / FUND_CONFIG.GOAL) * 100), 100);
+            const remaining = Math.max(FUND_CONFIG.GOAL - FUND_CONFIG.CURRENT, 0);
             
             // Обновляем цифры
-            document.getElementById('currentAmount').textContent = FUND_CURRENT.toLocaleString('ru-RU') + '₽';
+            document.getElementById('currentAmount').textContent = FUND_CONFIG.CURRENT.toLocaleString('ru-RU') + '₽';
             document.getElementById('remainingAmount').textContent = remaining.toLocaleString('ru-RU') + '₽';
             document.getElementById('fundProgress').textContent = percent + '%';
             
@@ -904,18 +975,9 @@
 
         // Можно добавить динамическое обновление с API позже:
         // fetch('/api/fund-status').then(r => r.json()).then(data => {
-        //     FUND_CURRENT = data.current;
+        //     FUND_CONFIG.CURRENT = data.current;
         //     updateFund();
         // });
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
