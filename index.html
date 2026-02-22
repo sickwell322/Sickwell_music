@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sickwell Music Bot v4.6 | Слэш-команды и новые фильтры</title>
+    <title>Sickwell Music Bot v4.7 | Social Update — Статистика и Достижения</title>
     <style>
         * {
             margin: 0;
@@ -474,7 +474,137 @@
         .rarity-mega { background: #fbbf24; color: #92400e; }
         .rarity-deep { background: #0891b2; color: #a5f3fc; }
 
-        /* Командная строка - v4.6 HYBRID COMMANDS */
+        /* Разворачиваемая секция достижений v4.7 */
+        .achievements-section {
+            padding: 60px 20px;
+            background: rgba(0,0,0,0.3);
+            border-top: 1px solid #333;
+            border-bottom: 1px solid #333;
+        }
+
+        .achievements-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .achievements-toggle {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid #333;
+            border-radius: 15px;
+            padding: 30px 40px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .achievements-toggle:hover {
+            border-color: #ffd700;
+            background: rgba(255,215,0,0.05);
+        }
+
+        .achievements-toggle-text {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .achievements-toggle-icon {
+            font-size: 48px;
+        }
+
+        .achievements-toggle-title {
+            font-size: 32px;
+            font-weight: bold;
+            color: #ffd700;
+        }
+
+        .achievements-toggle-subtitle {
+            font-size: 16px;
+            color: #888;
+            margin-top: 5px;
+        }
+
+        .achievements-arrow {
+            font-size: 32px;
+            color: #00ff88;
+            transition: transform 0.3s;
+        }
+
+        .achievements-toggle.active .achievements-arrow {
+            transform: rotate(180deg);
+        }
+
+        .achievements-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, padding 0.3s;
+        }
+
+        .achievements-content.active {
+            max-height: 3000px;
+            padding-top: 40px;
+        }
+
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .achievement-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid #333;
+            padding: 20px;
+            border-radius: 12px;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .achievement-card:hover {
+            border-color: #ffd700;
+            transform: translateX(5px);
+            background: rgba(255,215,0,0.05);
+        }
+
+        .achievement-icon {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .achievement-name {
+            font-size: 16px;
+            font-weight: bold;
+            color: #ffd700;
+            margin-bottom: 4px;
+        }
+
+        .achievement-desc {
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 8px;
+        }
+
+        .achievement-reward {
+            font-size: 11px;
+            color: #00ff88;
+            font-family: monospace;
+        }
+
+        .achievement-category {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 10px;
+            padding: 3px 8px;
+            background: rgba(0,255,136,0.1);
+            color: #00ff88;
+            border-radius: 8px;
+            text-transform: uppercase;
+        }
+
+        /* Командная строка - v4.7 HYBRID COMMANDS */
         .commands-section {
             padding: 100px 20px;
             background: rgba(0,0,0,0.3);
@@ -512,7 +642,7 @@
 
         .terminal-body {
             padding: 20px;
-            max-height: 600px;
+            max-height: 700px;
             overflow-y: auto;
         }
 
@@ -565,6 +695,24 @@
             font-weight: bold;
             margin-left: 10px;
             vertical-align: middle;
+        }
+
+        .new-badge {
+            display: inline-block;
+            background: #ffd700;
+            color: #000;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: bold;
+            margin-left: 8px;
+            vertical-align: middle;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
         }
 
         /* Футер */
@@ -667,6 +815,10 @@
             .mascot-img {
                 max-width: 250px;
             }
+            
+            .achievements-toggle-title {
+                font-size: 24px;
+            }
         }
 
         @media (max-width: 768px) {
@@ -677,6 +829,15 @@
             .features { padding: 50px 20px; }
             .mascot-container { width: 200px; height: 200px; }
             .mascot-img { max-width: 200px; }
+            
+            .achievements-toggle {
+                padding: 20px;
+            }
+            
+            .achievements-toggle-text {
+                flex-direction: column;
+                gap: 10px;
+            }
         }
     </style>
 </head>
@@ -686,9 +847,10 @@
     </div>
 
     <header>
-        <div class="logo">Sickwell Music v4.6</div>
+        <div class="logo">Sickwell Music v4.7</div>
         <nav>
             <a href="#features">Фичи</a>
+            <a href="#achievements">Ачивки</a>
             <a href="#commands">Команды</a>
             <a href="#fund">Фонд</a>
             <a href="https://discord.gg/GPWX58cbEX" target="_blank">Связь</a>
@@ -698,18 +860,18 @@
     <section class="hero">
         <div class="hero-container">
             <div class="hero-text">
-                <h1>Музыка без повторов</h1>
-                <p>Discord-бот с гибридными командами (и /, и !). Новые фильтры редкости: от underground (1к просмотров) до viral (100млн+). Умный рандом теперь точнее.</p>
+                <h1>Слушай и Соревнуйся</h1>
+                <p>Discord-бот с системой достижений, статистикой и топами. 30 наград от "Первых шагов" до "Меломана". Гибридные команды и умный рандом с 7 фильтрами редкости.</p>
                 <div>
                     <a href="https://discord.com/oauth2/authorize?client_id=1470582581526528183&permissions=8&integration_type=0&scope=applications.commands+bot" class="cta-button" target="_blank">
                         ➕ Добавить на сервер
                     </a>
-                    <a href="https://discord.gg/GPWX58cbEX" class="cta-button secondary" target="_blank">
+                    <a href="https://t.me/jsickwell" class="cta-button secondary" target="_blank">
                         💬 Написать разрабу
                     </a>
                 </div>
                 <p style="margin-top: 30px; font-size: 14px; color: #555;">
-                    Sickwell_music_bot v4.6 Slash Commands Update • 24/7 • Hybrid Commands
+                    Sickwell_music_bot v4.7 Social Update • 30 достижений • Глобальный топ • 24/7
                 </p>
             </div>
             
@@ -730,7 +892,7 @@
         <div class="fund-container">
             <h2 class="fund-title">💰 Server Fund: Raspberry Pi 5</h2>
             <p style="color: #888; margin-bottom: 30px; max-width: 500px; margin-left: auto; margin-right: auto;">
-                Помоги боту переехать на свою железку. Сейчас он живет на хозяйском ПК, а мы хотим свою малинку!
+                Помоги боту переехать на свою железку. Донат 100₽ = твой тег в генераторе случайных треков!
             </p>
             
             <div class="thermometer-container">
@@ -759,24 +921,36 @@
             </div>
             
             <a href="https://www.donationalerts.com/r/jsickwell" target="_blank" class="cta-button" style="margin-top: 40px;">
-                💳 Задонатить на железо
+                💳 Задонатить и добавить тег
             </a>
         </div>
     </section>
 
     <section class="features" id="features">
-        <h2 class="section-title">Почему этот бот особенный?</h2>
+        <h2 class="section-title">Что нового в v4.7?</h2>
         
         <div class="features-grid">
             <div class="feature-card">
-                <div class="feature-icon">🎲</div>
-                <h3 class="feature-title">Умный Рандом v4.6</h3>
-                <p class="feature-desc">Комбинирует теги со случайными модификаторами: год (2024, 2023), стиль (slowed, reverb, nightcore), настроение (sad, aggressive, chill). Не повторяет последние 20 жанров.</p>
+                <div class="feature-icon">🏆</div>
+                <h3 class="feature-title">30 Достижений</h3>
+                <p class="feature-desc">Система наград за активность: слушай музыку, собирай уникальные жанры, используй рандом и получай ачивки от "Первых шагов" до "Диванного эксперта" (500ч прослушивания).</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3 class="feature-title">Личная Статистика</h3>
+                <p class="feature-desc">Команда /stats показывает: треков включено, общее время прослушивания, топ-5 любимых жанров, прогресс по достижениям и сколько осталось до следующей награды.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🌐</div>
+                <h3 class="feature-title">Глобальный Топ</h3>
+                <p class="feature-desc">Узнай, что слушают на всех серверах. Глобальный чарт треков (/globaltop) и серверный топ пользователей (/top) по количеству добавленных треков и времени.</p>
             </div>
             
             <div class="feature-card">
                 <div class="feature-icon">👁️</div>
-                <h3 class="feature-title">6 уровней редкости</h3>
+                <h3 class="feature-title">7 уровней редкости</h3>
                 <p class="feature-desc" style="font-size: 13px; line-height: 1.8;">
                     <span class="rarity-tag rarity-micro">micro</span> 1к-50к (Underground)<br>
                     <span class="rarity-tag rarity-small">small</span> 50к-250к (Growing)<br>
@@ -789,21 +963,9 @@
             </div>
             
             <div class="feature-card">
-                <div class="feature-icon">📜</div>
-                <h3 class="feature-title">Умная очередь</h3>
-                <p class="feature-desc">Выпадающий список для выбора любого трека из очереди. История последних 20 треков (кнопка ⏮️). Перемешивание (🔀). Мульти-удаление до 10 треков.</p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">⏯️</div>
-                <h3 class="feature-title">Живой прогресс-бар</h3>
-                <p class="feature-desc">Обновляется каждые 10 секунд прямо в Discord: ▬▬▬🔘▬▬▬. Видно точное время и сколько осталось до конца трека.</p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">🎛️</div>
-                <h3 class="feature-title">Панель управления</h3>
-                <p class="feature-desc">Красивый embed с кнопками: ⏮️⏸️▶️⏭️🗑️📜🔁🔀🎲💰🚪. Всё управление одним кликом, без команд.</p>
+                <div class="feature-icon">🎲</div>
+                <h3 class="feature-title">Умный Рандом v4.7</h3>
+                <p class="feature-desc">Комбинирует базовые теги с модификаторами года, стиля и настроения. Анти-рандом фильтр блокирует караоке и инструменталы. Не повторяет последние 20 жанров.</p>
             </div>
             
             <div class="feature-card">
@@ -814,15 +976,281 @@
         </div>
     </section>
 
+    <!-- Разворачиваемая секция достижений v4.7 -->
+    <section class="achievements-section" id="achievements">
+        <div class="achievements-container">
+            <div class="achievements-toggle" onclick="toggleAchievements()">
+                <div class="achievements-toggle-text">
+                    <div class="achievements-toggle-icon">🏆</div>
+                    <div>
+                        <div class="achievements-toggle-title">Система Достижений <span class="new-badge">NEW v4.7</span></div>
+                        <div class="achievements-toggle-subtitle">Нажми, чтобы увидеть все 30 наград • Кликни для разворачивания</div>
+                    </div>
+                </div>
+                <div class="achievements-arrow">▼</div>
+            </div>
+            
+            <div class="achievements-content" id="achievementsContent">
+                <div class="achievements-grid">
+                    <!-- Общая активность -->
+                    <div class="achievement-card">
+                        <span class="achievement-category">Активность</span>
+                        <div class="achievement-icon">👣</div>
+                        <div class="achievement-name">Первые шаги</div>
+                        <div class="achievement-desc">Включить свой первый трек</div>
+                        <div class="achievement-reward">Награда: Начинающий меломан</div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <span class="achievement-category">Активность</span>
+                        <div class="achievement-icon">🎵</div>
+                        <div class="achievement-name">Десяток</div>
+                        <div class="achievement-desc">Включить 10 треков</div>
+                        <div class="achievement-reward">Награда: +1 к репутации</div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <span class="achievement-category">Активность</span>
+                        <div class="achievement-icon">💯</div>
+                        <div class="achievement-name">Сотня</div>
+                        <div class="achievement-desc">Включить 100 треков</div>
+                        <div class="achievement-reward">Награда: Музыкальный энтузиаст</div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <span class="achievement-category">Активность</span>
+                        <div class="achievement-icon">🔥</div>
+                        <div class="achievement-name">Полтыщи</div>
+                        <div class="achievement-desc">Включить 500 треков</div>
+                        <div class="achievement-reward">Награда: Завсегдатай</div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <span class="achievement-category">Активность</span>
+                        <div class="achievement-icon">🎧</div>
+                        <div class="achievement-name">Музыкальный зависимый</div>
+                        <div class="achievement-desc">Включить 1000 треков</div>
+                        <div class="achievement-reward">Награда: Легенда сервера</div>
+                    </div>
+
+                    <!-- Время -->
+                    <div class="achievement-card">
+                        <span class="achievement-category">Время</span>
+                        <div class="achievement-icon">☕</div>
+                        <div class="achievement-name">Чаёк</div>
+                        <div class="achievement-desc">1 час прослушивания</div>
+                        <div class="achievement-reward">Награда: Перерыв на кофе</div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <span class="achievement-category">Время</span>
+                        <div class="achievement-icon">🚶</div>
+                        <div class="achievement-name">Отошёл от компа</div>
+                        <div class="achievement-desc">10 часов прослушивания</div>
+                        <div class="achievement-reward">Награда: AFK мастер</div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <span class="achievement-category">Время</span>
+                        <div class="achievement-icon">🌙</div>
+                        <div class="achievement-name">Сутки</div>
+                        <div class="achievement-desc">24 часа музыки</div>
+                        <div class="achievement-reward">Награда: Бессонница</div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <span class="achievement-category">Время</span>
+                        <div class="achievement-icon">🎶</div>
+                        <div class="achievement-name">Меломан</div>
+                        <div class="achievement-desc">100 часов прослушивания</div>
+                        <div class="achievement-reward">Награда: Почётный слушатель</div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <span class="achievement-category">Время</span>
+                        <div class="achievement-icon">🛋️</div>
+                        <div class="achievement-name">Диванный эксперт</div>
+                        <div class="achievement-desc">500 часов прослушивания</div>
+                        <div class="achievement-reward">Награда: Ты живёшь в Discord?</div>
+                    </div>
+
+                    <!-- Рандом -->
+                    <div class="achievement-card">
+                        <span class="achievement-category">Рандом</span>
+                        <div class="achievement-icon">🎲</div>
+                        <div class="achievement-name">Рандомайзер</div>
+                        <div class="achievement-desc">Добавить 50 треков через !random</div>
+                        <div class="achievement-reward">Награда: Любитель сюрпризов</div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <span class="achievement-category">Рандом</span>
+                        <div class="achievement-icon">🎰</div>
+                        <div class="achievement-name">Игроман</div>
+                        <div class="achievement-desc">Добавить 200 треков через !random</div>
+                        <div class="achievement-reward">Награда: Рисковый человек</div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <span class="achievement-category">Рандом</span>
+                        <div class="achievement-icon">💎</div>
+                        <div class="achievement-name">Искатель жемчуга</div>
+                        <div class="achievement-desc">25 треков rarity:micro</div>
+                        <div class="achievement-reward">Награда: Кладоискатель</div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <span class="achievement-category">Рандом</span>
+                        <div class="achievement-icon">🌿</div>
+                        <div class="achievement-name">Андерграунд</div>
+                        <div class="achievement-desc">100 треков rarity:deep</div>
+                        <div class="achievement-reward">Награда: Хипстер</div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <span class="achievement-category">Рандом</span>
+                        <div class="achievement-icon">⭐</div>
+                        <div class="achievement-name">Хайпожор</div>
+                        <div class="achievement-desc">10 треков rarity:mega</div>
+                        <div class="achievement-reward">Награда: Мейнстримщик</div>
+                    </div>
+
+                    <!-- Жанры -->
+                    <div class="achievement-card">
+                        <span class="achievement-category">Жанры</span>
+                        <div class="achievement-icon">🎭</div>
+                        <div class="achievement-name">Эклектик</div>
+                        <div class="achievement-desc">Слушать 10 разных жанров</div>
+                        <div class="achievement-reward">Награда: Разносторонняя личность</div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <span class="achievement-category">Жанры</span>
+                        <div class="achievement-icon">🏔️</div>
+                        <div class="achievement-name">Покоритель жанров</div>
+                        <div class="achievement-desc">Слушать 25 разных жанров</div>
+                        <div class="achievement-reward">Награда: Музыкальный критик</div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <span class="achievement-category">Жанры</span>
+                        <div class="achievement-icon">🚗</div>
+                        <div class="achievement-name">Фонкер</div>
+                        <div class="achievement-desc">50 треков в жанре phonk</div>
+                        <div class="achievement-reward">Награда: Drift King</div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <span class="achievement-category">Жанры</span>
+                        <div class="achievement-icon">🎸</div>
+                        <div class="achievement-name">Рок-звезда</div>
+                        <div class="achievement-desc">50 треков rock/metal</div>
+                        <div class="achievement-reward">Награда: Гитар герой</div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <span class="achievement-category">Жанры</span>
+                        <div class="achievement-icon">🔊</div>
+                        <div class="achievement-name">Бассхед</div>
+                        <div class="achievement-desc">50 треков electronic/dnb</div>
+                        <div class="achievement-reward">Награда: Басы на максимум</div>
+                    </div>
+
+                    <!-- Техническое -->
+                    <div class="achievement-card">
+                        <span class="achievement-category">Техническое</span>
+                        <div class="achievement-icon">📀</div>
+                        <div class="achievement-name">Диджей</div>
+                        <div class="achievement-desc">Добавить 100 треков вручную</div>
+                        <div class="achievement-reward">Награда: Ведущий вечеринки</div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <span class="achievement-category">Техническое</span>
+                        <div class="achievement-icon">🦉</div>
+                        <div class="achievement-name">Сова</div>
+                        <div class="achievement-desc">50 треков ночью (00:00-06:00)</div>
+                        <div class="achievement-reward">Награда: Ночной страж</div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <span class="achievement-category">Техническое</span>
+                        <div class="achievement-icon">🔘</div>
+                        <div class="achievement-name">Кнопочник</div>
+                        <div class="achievement-desc">100 нажатий на кнопки панели</div>
+                        <div class="achievement-reward">Награда: Кликер</div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <span class="achievement-category">Техническое</span>
+                        <div class="achievement-icon">📋</div>
+                        <div class="achievement-name">Организатор</div>
+                        <div class="achievement-desc">20 shuffle/remove операций</div>
+                        <div class="achievement-reward">Награда: Порядок в очереди</div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <span class="achievement-category">Техническое</span>
+                        <div class="achievement-icon">🔄</div>
+                        <div class="achievement-name">Зацикленный</div>
+                        <div class="achievement-desc">Включить loop 50 раз</div>
+                        <div class="achievement-reward">Награда: Повторяй за мной</div>
+                    </div>
+
+                    <!-- Особые -->
+                    <div class="achievement-card">
+                        <span class="achievement-category">Особые</span>
+                        <div class="achievement-icon">💚</div>
+                        <div class="achievement-name">Филантроп</div>
+                        <div class="achievement-desc">Сделать донат в фонд сервера</div>
+                        <div class="achievement-reward">Награда: Спонсор</div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <span class="achievement-category">Особые</span>
+                        <div class="achievement-icon">🐦</div>
+                        <div class="achievement-name">Ранний пташка</div>
+                        <div class="achievement-desc">Был среди первых пользователей (до 01.03.2026)</div>
+                        <div class="achievement-reward">Награда: Олдскульный</div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <span class="achievement-category">Особые</span>
+                        <div class="achievement-icon">🏃</div>
+                        <div class="achievement-name">Марафонец</div>
+                        <div class="achievement-desc">4 часа непрерывного прослушивания</div>
+                        <div class="achievement-reward">Награда: Выносливость</div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <span class="achievement-category">Особые</span>
+                        <div class="achievement-icon">📚</div>
+                        <div class="achievement-name">Коллекционер</div>
+                        <div class="achievement-desc">Слушать треки из 15+ жанров</div>
+                        <div class="achievement-reward">Награда: Музейный экспонат</div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <span class="achievement-category">Особые</span>
+                        <div class="achievement-icon">🍀</div>
+                        <div class="achievement-name">Везунчик</div>
+                        <div class="achievement-desc">Шанс 0.1% при каждом треке</div>
+                        <div class="achievement-reward">Награда: Лотерейный билет</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="commands-section" id="commands">
-        <h2 class="section-title">Команды v4.6 <span class="hybrid-badge">HYBRID</span></h2>
+        <h2 class="section-title">Команды v4.7 <span class="hybrid-badge">HYBRID</span></h2>
         
         <div class="terminal">
             <div class="terminal-header">
                 <div class="terminal-btn"></div>
                 <div class="terminal-btn"></div>
                 <div class="terminal-btn"></div>
-                <span style="color: #666; margin-left: 10px; font-family: sans-serif; font-size: 14px;">Terminal - Hybrid Commands (Prefix + Slash)</span>
+                <span style="color: #666; margin-left: 10px; font-family: sans-serif; font-size: 14px;">Terminal - v4.7 Social Update Commands</span>
             </div>
             
             <div class="terminal-body">
@@ -833,6 +1261,37 @@
                 <div class="command-line">!play [запрос или ссылка]</div>
                 <div class="slash-command">/play query:[запрос]</div>
                 <div class="response">Ищет трек на YouTube и добавляет в очередь. Пример: !play phonk 2024 или /play query:phonk 2024</div>
+
+                <div class="command-line">!stats</div>
+                <div class="slash-command">/stats <span class="new-badge">NEW</span></div>
+                <div class="response">
+                    Показывает личную статистику:<br>
+                    • Треков включено: 1337<br>
+                    • Время прослушивания: 42ч 15мин<br>
+                    • Топ жанров: phonk (25%), rock (20%), electronic (15%)<br>
+                    • Достижений разблокировано: 12/30<br>
+                    • Следующая ачивка: Меломан (осталось 8ч)
+                </div>
+
+                <div class="command-line">!top</div>
+                <div class="slash-command">/top <span class="new-badge">NEW</span></div>
+                <div class="response">
+                    Серверный топ пользователей:<br>
+                    🥇 @user1 — 245 треков (68ч)<br>
+                    🥈 @user2 — 189 треков (45ч)<br>
+                    🥉 @user3 — 156 треков (38ч)<br>
+                    Твоя позиция: #5 (89 треков, 22ч)
+                </div>
+
+                <div class="command-line">!globaltop</div>
+                <div class="slash-command">/globaltop <span class="new-badge">NEW</span></div>
+                <div class="response">
+                    Глобальный чарт популярных треков:<br>
+                    1. Artist - Track Name (152 прослушивания)<br>
+                    2. Another - Song (128 прослушиваний)<br>
+                    3. Phonk - Brazil (98 прослушиваний)<br>
+                    ...по всем серверам где есть бот
+                </div>
 
                 <div class="command-line">!random [rarity]</div>
                 <div class="slash-command">/random rarity:[micro/small/medium/large/mega/deep/any]</div>
@@ -853,11 +1312,11 @@
 
                 <div class="command-line">!queue</div>
                 <div class="slash-command">/queue</div>
-                <div class="response">Показывает текущую очередь с прогресс-баром играющего трека, историю и кнопки управления</div>
+                <div class="response">Показывает текущую очередь с прогресс-баром играющего трека, историю и кнопки управления (мульти-удаление до 10 треков)</div>
 
                 <div class="command-line">!search [запрос]</div>
                 <div class="slash-command">/search query:[запрос]</div>
-                <div class="response">Ищет 5 вариантов на YouTube, предлагает выбрать номером (1-5). Теперь и через слэш!</div>
+                <div class="response">Ищет 5 вариантов на YouTube, предлагает выбрать номером (1-5)</div>
 
                 <div class="command-line">!skip / !previous</div>
                 <div class="slash-command">/skip | /previous</div>
@@ -882,7 +1341,7 @@
 
                 <div class="command-line">!fund</div>
                 <div class="slash-command">/fund</div>
-                <div class="response">Показывает статус сбора на Raspberry Pi: прогресс-бар, собранная сумма, топ донатеров</div>
+                <div class="response">Показывает статус сбора на Raspberry Pi: прогресс-бар, собранная сумма, топ донатеров. Донат 100₽ = твой тег в рандоме!</div>
 
                 <div class="command-line">!pause / !resume / !stop</div>
                 <div class="slash-command">/pause | /resume | /stop</div>
@@ -924,7 +1383,7 @@
 
     <p class="copyright">© 2026 Sickwell Music Bot. Все права защищены.</p>
     <p class="copyright" style="margin-top: 5px; font-size: 12px;">Контакт: <a href="https://discord.gg/GPWX58cbEX" style="color: #5865F2; text-decoration: none;">discord.gg/GPWX58cbEX</a> </p>
-    <p class="version">v4.6 (Slash Commands Update) • Discord • Sickwell_music</p>
+    <p class="version">v4.7 (Social Update) • Discord • Sickwell_music</p>
     <p class="update-date">Обновлено: 22.02.2026</p>
 </footer>
 
@@ -961,6 +1420,15 @@
             });
         });
 
+        // Разворачивание достижений
+        function toggleAchievements() {
+            const toggle = document.querySelector('.achievements-toggle');
+            const content = document.getElementById('achievementsContent');
+            
+            toggle.classList.toggle('active');
+            content.classList.toggle('active');
+        }
+
         // Расчет и отображение фонда
         function updateFund() {
             const percent = Math.min(Math.round((FUND_CONFIG.CURRENT / FUND_CONFIG.GOAL) * 100), 100);
@@ -988,6 +1456,3 @@
     </script>
 </body>
 </html>
-
-
-
