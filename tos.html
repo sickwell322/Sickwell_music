@@ -204,6 +204,25 @@
         .contact a {
             color: #00ff88;
             text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .contact a:hover {
+            color: #fff;
+        }
+
+        /* Стиль для ссылки ЦНИ */
+        .cni-link {
+            color: #00ff88;
+            text-decoration: none;
+            font-weight: bold;
+            border-bottom: 1px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .cni-link:hover {
+            color: #fff;
+            border-bottom: 1px solid #00ff88;
         }
 
         @media (max-width: 768px) {
@@ -226,14 +245,14 @@
     <div class="container">
         <div class="content-card">
             <h1>Условия использования</h1>
-            <p class="subtitle">Sickwell Music Bot v4.0 — правила игры</p>
+            <p class="subtitle">Sickwell Music Bot v4.6 — правила игры</p>
 
             <div class="highlight-box">
                 <p>Используя бота, вы соглашаетесь с этими правилами. Если не согласны — не используйте. Просто, как бочка пива.</p>
             </div>
 
             <h2>1. Что это вообще такое</h2>
-            <p>Sickwell_music — это Discord-бот для воспроизведения музыки с фишками: умный рандом, фильтр по просмотрам, живая очередь с прогресс-баром и панель управления.</p>
+            <p>Sickwell_music — это Discord-бот для воспроизведения музыки с фишками: умный рандом, фильтр по просмотрам (micro/small/medium/large/mega/deep), гибридные команды (! и /), живая очередь с прогресс-баром и панель управления.</p>
 
             <h2>2. Что нельзя делать</h2>
             <ul>
@@ -253,13 +272,14 @@
             <h2>5. Изменения условий</h2>
             <p>Мы можем обновлять эти правила. Продолжая использовать бота после изменений — вы с ними соглашаетесь. Следите за обновлениями в Telegram: <a href="https://t.me/jsickwell" style="color: #00ff88; text-decoration: none;">@jsickwell</a></p>
 
-            <h2>6. Контакты</h2>
-            <p>Вопросы, жалобы, предложения, спам:</p>
-            <p><strong>Telegram:</strong> <a href="https://t.me/jsickwell" style="color: #00ff88; text-decoration: none;">@jsickwell</a> (ЦНИ — Центр Нереализованных Идей)</p>
+<h2>6. Контакты</h2>
+<p>Вопросы, жалобы, предложения, спам:</p>
+<p><strong>Telegram:</strong> <a href="https://t.me/jsickwell" style="color: #00ff88; text-decoration: none;">@jsickwell</a> (<a href="https://t.me/jsickwell" class="cni-link">ЦНИ</a> — Центр Нереализованных Идей)</p>
+<p><strong>Discord сервер:</strong> <a href="https://discord.gg/GPWX58cbEX" style="color: #00ff88; text-decoration: none;">discord.gg/GPWX58cbEX</a></p>
 
             <div class="last-updated">
-                Последнее обновление: 10 февраля 2026 г.<br>
-                Версия: 4.0 (Smart random Edition)
+                Последнее обновление: 22 февраля 2026 г.<br>
+                Версия: 4.6 (Slash Commands Update)
             </div>
         </div>
     </div>
@@ -273,7 +293,10 @@
             <a href="privacy.html">Политика конфиденциальности</a>
         </div>
 
-        <p class="contact">Контакт: <a href="https://t.me/jsickwell">t.me/jsickwell</a> (ЦНИ)</p>
+        <p class="contact">
+            Made with passion by <a href="https://t.me/jsickwell" class="cni-link">ЦНИ</a> (Центр Нереализованных Идей)<br>
+            Контакт: <a href="https://t.me/jsickwell">t.me/jsickwell</a>
+        </p>
         <p class="copyright">© 2026 Sickwell Music Bot. Все права защищены.</p>
     </footer>
 </body>
