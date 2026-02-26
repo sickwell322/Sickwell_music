@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service - Sickwell Music Bot v4.7.5</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(45deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%);
+        }
+
+        header {
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #333;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            background: linear-gradient(45deg, #00ff88, #00ccff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo::before {
+            content: "🎵";
+            font-size: 30px;
+            -webkit-text-fill-color: initial;
+        }
+
+        .back-btn {
+            color: #00ff88;
+            text-decoration: none;
+            padding: 10px 25px;
+            border: 1px solid #00ff88;
+            border-radius: 25px;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .back-btn:hover {
+            background: rgba(0,255,136,0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,255,136,0.2);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .content-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid #333;
+            border-radius: 20px;
+            padding: 50px;
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            font-size: 42px;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #fff 0%, #00ff88 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 18px;
+        }
+
+        h2 {
+            color: #00ff88;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            font-size: 24px;
+            border-left: 4px solid #00ff88;
+            padding-left: 15px;
+        }
+
+        p {
+            color: #aaa;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        ul {
+            margin-left: 20px;
+            margin-bottom: 20px;
+            color: #aaa;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        strong {
+            color: #fff;
+        }
+
+        .highlight-box {
+            background: rgba(0,255,136,0.05);
+            border: 1px solid rgba(0,255,136,0.2);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        .highlight-box p {
+            margin: 0;
+            color: #00ff88;
+        }
+
+        .new-feature {
+            background: rgba(255,215,0,0.05);
+            border: 1px solid rgba(255,215,0,0.2);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .new-feature p {
+            margin: 0;
+            color: #ffd700;
+        }
+
+        .last-updated {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid #333;
+            color: #666;
+            font-size: 14px;
+            font-style: italic;
+        }
+
+        footer {
+            text-align: center;
+            padding: 50px 20px;
+            background: #000;
+            border-top: 1px solid #333;
+            margin-top: 80px;
+        }
+
+        .footer-links {
+            margin: 25px 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #888;
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 1px solid #333;
+            border-radius: 20px;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .footer-links a:hover {
+            color: #00ff88;
+            border-color: #00ff88;
+            background: rgba(0,255,136,0.05);
+        }
+
+        .footer-links a.active {
+            color: #00ff88;
+            border-color: #00ff88;
+        }
+
+        .copyright {
+            color: #444;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .contact {
+            color: #666;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .contact a {
+            color: #00ff88;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .contact a:hover {
+            color: #fff;
+        }
+
+        .cni-link {
+            color: #00ff88;
+            text-decoration: none;
+            font-weight: bold;
+            border-bottom: 1px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .cni-link:hover {
+            color: #fff;
+            border-bottom: 1px solid #00ff88;
+        }
+
+        @media (max-width: 768px) {
+            header { padding: 15px 20px; }
+            .container { margin: 30px auto; }
+            .content-card { padding: 30px 20px; }
+            h1 { font-size: 32px; }
+            h2 { font-size: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+
+    <header>
+        <a href="en.html" class="logo">Sickwell Music v4.7.5</a>
+        <a href="en.html" class="back-btn">← Back to Home</a>
+    </header>
+
+    <div class="container">
+        <div class="content-card">
+            <h1>Terms of Service</h1>
+            <p class="subtitle">Sickwell Music Bot v4.7.5 Autopilot Update — Rules of the Game</p>
+
+            <div class="highlight-box">
+                <p>By using the bot, you agree to these rules. If you don't agree — don't use it. Simple as a barrel of beer.</p>
+            </div>
+
+            <div class="new-feature">
+                <p>🏆 <strong>New in v4.7:</strong> Achievements and statistics system. By using the bot, you agree to storage of anonymized listening statistics (track count, time, genres) for achievements and leaderboards functionality.</p>
+            </div>
+
+            <h2>1. What This Is</h2>
+            <p>Sickwell_music is a Discord music bot with features: smart random with 7 rarity filters (micro/small/medium/large/mega/deep/any), hybrid commands (! and /), live queue with progress bar, 30 achievements system, autopilot mode and user statistics.</p>
+
+            <h2>2. What You Cannot Do</h2>
+            <ul>
+                <li>Use the bot to violate Discord Terms of Service or local laws</li>
+                <li>Spam commands to cause malfunction (DDoS the bot)</li>
+                <li>Attempt to hack code or tokens (though they are in .env, but still)</li>
+                <li>Play NSFW content in inappropriate channels (server admin responsibility)</li>
+                <li>Intentionally exploit achievement statistics (bot detects this and can reset progress)</li>
+            </ul>
+
+            <h2>3. Music and Copyright</h2>
+            <p>The bot uses YouTube as a source. We don't store music, don't distribute files, only stream. If your track appeared in rotation and you're unhappy — contact YouTube, not us.</p>
+            <p><strong>Server admin is responsible</strong> for content that members play through the bot.</p>
+
+            <h2>4. Statistics and Achievements</h2>
+            <p>For the achievements system (v4.7+) the bot saves:</p>
+            <ul>
+                <li>Number of played tracks and total listening time</li>
+                <li>Music genres (for achievements like "Phonker", "Rock Star")</li>
+                <li>First use date (for "Early Bird" achievement)</li>
+                <li>Server activity (for server leaderboard)</li>
+            </ul>
+            <p>Data is stored in local SQLite database, not transferred to third parties, used only for displaying your statistics (/stats) and global top (/globaltop).</p>
+
+            <h2>5. Availability</h2>
+            <p>Bot works "as is". We don't guarantee 100% uptime (especially while on developer's PC, not Raspberry Pi yet). Donations go toward hardware, but this is not a subscription — no guarantees, only hope and coffee.</p>
+
+            <h2>6. Terms Changes</h2>
+            <p>We may update these rules. By continuing to use the bot after changes — you agree to them. Follow updates in the #📜╏updates channel.</p>
+
+            <h2>7. Contacts</h2>
+            <p>Questions, complaints, suggestions, spam:</p>
+            <p><strong>Telegram:</strong> <a href="https://t.me/jsickwell" style="color: #00ff88; text-decoration: none;">@jsickwell</a> (<a href="https://t.me/jsickwell" class="cni-link">CUI</a> — Center of Unrealized Ideas)</p>
+            <p><strong>Discord Server:</strong> <a href="https://discord.gg/GPWX58cbEX" style="color: #00ff88; text-decoration: none;">discord.gg/GPWX58cbEX</a></p>
+
+            <div class="last-updated">
+                Last Updated: February 26, 2026<br>
+                Version: 4.7.5 (Autopilot Update)
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p style="font-size: 20px; margin-bottom: 10px;">🎵 Sickwell Music Bot</p>
+        
+        <div class="footer-links">
+            <a href="en.html">Home</a>
+            <a href="tos_en.html" class="active">Terms of Service</a>
+            <a href="privacy_en.html">Privacy Policy</a>
+        </div>
+
+        <p class="contact">
+            Made with passion by <a href="https://t.me/jsickwell" class="cni-link">CUI</a> (Center of Unrealized Ideas)<br>
+            Contact: <a href="https://t.me/jsickwell">t.me/jsickwell</a>
+        </p>
+        <p class="copyright">© 2026 Sickwell Music Bot. All rights reserved.</p>
+    </footer>
+</body>
+</html>
