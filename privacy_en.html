@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Sickwell Music Bot v4.7.5</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(45deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%);
+        }
+
+        header {
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #333;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            background: linear-gradient(45deg, #00ff88, #00ccff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo::before {
+            content: "🎵";
+            font-size: 30px;
+            -webkit-text-fill-color: initial;
+        }
+
+        .back-btn {
+            color: #00ff88;
+            text-decoration: none;
+            padding: 10px 25px;
+            border: 1px solid #00ff88;
+            border-radius: 25px;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .back-btn:hover {
+            background: rgba(0,255,136,0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,255,136,0.2);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .content-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid #333;
+            border-radius: 20px;
+            padding: 50px;
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            font-size: 42px;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #fff 0%, #00ccff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 18px;
+        }
+
+        h2 {
+            color: #00ccff;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            font-size: 24px;
+            border-left: 4px solid #00ccff;
+            padding-left: 15px;
+        }
+
+        p {
+            color: #aaa;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        ul {
+            margin-left: 20px;
+            margin-bottom: 20px;
+            color: #aaa;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        strong {
+            color: #fff;
+        }
+
+        .highlight-box {
+            background: rgba(0,204,255,0.05);
+            border: 1px solid rgba(0,204,255,0.2);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        .highlight-box p {
+            margin: 0;
+            color: #00ccff;
+        }
+
+        .new-box {
+            background: rgba(255,215,0,0.05);
+            border: 1px solid rgba(255,215,0,0.2);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        .new-box p {
+            margin: 0;
+            color: #ffd700;
+        }
+
+        .data-item {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid #222;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .data-item::before {
+            content: "📋";
+            font-size: 24px;
+        }
+
+        .data-item.new::before {
+            content: "🏆";
+            color: #ffd700;
+        }
+
+        .last-updated {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid #333;
+            color: #666;
+            font-size: 14px;
+            font-style: italic;
+        }
+
+        footer {
+            text-align: center;
+            padding: 50px 20px;
+            background: #000;
+            border-top: 1px solid #333;
+            margin-top: 80px;
+        }
+
+        .footer-links {
+            margin: 25px 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #888;
+            text-decoration: none;
+            padding: 8px 16px;
+            border: 1px solid #333;
+            border-radius: 20px;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .footer-links a:hover {
+            color: #00ccff;
+            border-color: #00ccff;
+            background: rgba(0,204,255,0.05);
+        }
+
+        .footer-links a.active {
+            color: #00ccff;
+            border-color: #00ccff;
+        }
+
+        .copyright {
+            color: #444;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .contact {
+            color: #666;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .contact a {
+            color: #00ff88;
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            header { padding: 15px 20px; }
+            .container { margin: 30px auto; }
+            .content-card { padding: 30px 20px; }
+            h1 { font-size: 32px; }
+            h2 { font-size: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+
+    <header>
+        <a href="en.html" class="logo">Sickwell Music v4.7.5</a>
+        <a href="en.html" class="back-btn">← Back to Home</a>
+    </header>
+
+    <div class="container">
+        <div class="content-card">
+            <h1>Privacy Policy</h1>
+            <p class="subtitle">We don't spy, we just play music (and count your achievements)</p>
+
+            <div class="highlight-box">
+                <p>TL;DR: we store minimum data, sell nothing, don't track you. Bot is for music and fun, not for data collection.</p>
+            </div>
+
+            <div class="new-box">
+                <p>🆕 <strong>v4.7 Update:</strong> Bot now stores listening statistics for achievements system. All data is local, anonymized and used only for your /stats and /top.</p>
+            </div>
+
+            <h2>What We Collect (and why)</h2>
+            
+            <div class="data-item">
+                <div>
+                    <strong style="color: #fff;">Discord Server ID</strong><br>
+                    <span style="color: #888; font-size: 14px;">To know which queue plays where. Deleted on bot restart.</span>
+                </div>
+            </div>
+
+            <div class="data-item">
+                <div>
+                    <strong style="color: #fff;">Channel and Message IDs</strong><br>
+                    <span style="color: #888; font-size: 14px;">To update control panel (progress bar, buttons). Only for current session.</span>
+                </div>
+            </div>
+
+            <div class="data-item">
+                <div>
+                    <strong style="color: #fff;">Queue History (20 tracks)</strong><br>
+                    <span style="color: #888; font-size: 14px;">For ⏮️ (previous track) and 📜 (history) buttons. Stored in RAM, not database.</span>
+                </div>
+            </div>
+
+            <div class="data-item new">
+                <div>
+                    <strong style="color: #fff;">Listening Statistics (v4.7+)</strong><br>
+                    <span style="color: #888; font-size: 14px;">Track count, total time, genres, achievements. Stored in local SQLite. Required for /stats, /top, /globaltop and 30 achievements system.</span>
+                </div>
+            </div>
+
+            <div class="data-item new">
+                <div>
+                    <strong style="color: #fff;">Discord User ID (v4.7+)</strong><br>
+                    <span style="color: #888; font-size: 14px;">To bind statistics to your account. Stored as hash/ID, no email/phone. Used only for displaying your personal achievements.</span>
+                </div>
+            </div>
+
+            <h2>What We DO NOT Collect</h2>
+            <ul>
+                <li>Emails, passwords, personal messages, phone numbers</li>
+                <li>Listening history beyond statistics (specific tracks not saved)</li>
+                <li>IP addresses or geolocation</li>
+                <li>Cookies (site is static, no trackers)</li>
+                <li>Search queries (temporary only for search, not stored)</li>
+            </ul>
+
+            <h2>SQLite Database (v4.7)</h2>
+            <p>Starting from version 4.7, bot uses local SQLite database to store:</p>
+            <ul>
+                <li><strong>user_stats:</strong> your tracks, time, genres, achievements, first join</li>
+                <li><strong>server_stats:</strong> activity by servers (for /top)</li>
+                <li><strong>global_tracks:</strong> track popularity counters (for /globaltop)</li>
+                <li><strong>guild_settings:</strong> autopilot on/off, language preferences</li>
+            </ul>
+            <p>Database is stored locally on bot server, not in cloud, not transferred to third parties. When bot is removed from server — server stats deleted, personal remains (bound to your Discord ID).</p>
+
+            <h2>DonationAlerts</h2>
+            <p>When donating via DonationAlerts we see:</p>
+            <ul>
+                <li>Your name (as specified in payment)</li>
+                <li>Amount and message (if you wrote one)</li>
+                <li>This data is displayed on fund page and in Discord channel</li>
+            </ul>
+            <p>Want anonymity? Write "anonymous" in donation message or contact us — we'll remove from list.</p>
+
+            <h2>Security</h2>
+            <p>Tokens and API keys are stored in secure environment variables (.env), not in code. Bot code is private, repository is public only for static files (website).</p>
+            <p>SQLite database is protected by filesystem access rights. Backups are made by developer locally, not in cloud services.</p>
+
+            <h2>Your Rights (GDPR/CCPA and common sense)</h2>
+            <p>You can at any time:</p>
+            <ul>
+                <li>Remove bot from server — all server data immediately deleted from memory</li>
+                <li>Request donation info removal from public list</li>
+                <li>Request complete statistics deletion from database (contact @jsickwell)</li>
+                <li>Learn what data exists about you (though there's almost none)</li>
+            </ul>
+
+            <h2>Contact</h2>
+            <p>For privacy questions and data deletion:</p>
+            <p><strong>Telegram:</strong> <a href="https://t.me/jsickwell" style="color: #00ff88; text-decoration: none;">@jsickwell</a></p>
+            <p><strong>Discord:</strong> <a href="https://discord.gg/GPWX58cbEX" style="color: #00ff88; text-decoration: none;">discord.gg/GPWX58cbEX</a> (DM @sickwell)</p>
+
+            <div class="last-updated">
+                Last Updated: February 26, 2026<br>
+                Policy Version: 4.7.5 (Autopilot Update)<br>
+                CUI (Center of Unrealized Ideas) values your privacy.
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p style="font-size: 20px; margin-bottom: 10px;">🎵 Sickwell Music Bot</p>
+        
+        <div class="footer-links">
+            <a href="en.html">Home</a>
+            <a href="tos_en.html">Terms of Service</a>
+            <a href="privacy_en.html" class="active">Privacy Policy</a>
+        </div>
+
+        <p class="contact">Contact: <a href="https://t.me/jsickwell">t.me/jsickwell</a> (CUI)</p>
+        <p class="copyright">© 2026 Sickwell Music Bot. All rights reserved.</p>
+    </footer>
+</body>
+</html>
