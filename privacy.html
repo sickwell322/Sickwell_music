@@ -3,14 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Политика конфиденциальности - Sickwell Music Bot v4.7</title>
+    <title>Политика конфиденциальности - Sickwell Music Bot v4.7.5</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #0a0a0a;
@@ -18,17 +13,13 @@
             min-height: 100vh;
             line-height: 1.6;
         }
-
         .bg-animation {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             z-index: -1;
             background: linear-gradient(45deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%);
         }
-
         header {
             padding: 20px 50px;
             display: flex;
@@ -38,7 +29,6 @@
             backdrop-filter: blur(10px);
             border-bottom: 1px solid #333;
         }
-
         .logo {
             font-size: 24px;
             font-weight: bold;
@@ -50,13 +40,36 @@
             gap: 10px;
             text-decoration: none;
         }
-
         .logo::before {
             content: "🎵";
             font-size: 30px;
             -webkit-text-fill-color: initial;
         }
-
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .lang-switch {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid #333;
+            border-radius: 20px;
+            padding: 5px 10px;
+            font-size: 14px;
+        }
+        .lang-switch a {
+            color: #666;
+            text-decoration: none;
+            margin: 0 5px;
+            padding: 2px 8px;
+            border-radius: 12px;
+            transition: all 0.3s;
+        }
+        .lang-switch a.active {
+            color: #00ff88;
+            background: rgba(0,255,136,0.1);
+            font-weight: bold;
+        }
         .back-btn {
             color: #00ff88;
             text-decoration: none;
@@ -66,19 +79,11 @@
             transition: all 0.3s;
             font-size: 14px;
         }
-
-        .back-btn:hover {
-            background: rgba(0,255,136,0.1);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,255,136,0.2);
-        }
-
         .container {
             max-width: 900px;
             margin: 60px auto;
             padding: 0 20px;
         }
-
         .content-card {
             background: rgba(255,255,255,0.03);
             border: 1px solid #333;
@@ -86,7 +91,6 @@
             padding: 50px;
             backdrop-filter: blur(10px);
         }
-
         h1 {
             font-size: 42px;
             margin-bottom: 10px;
@@ -94,13 +98,11 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-
         .subtitle {
             color: #666;
             margin-bottom: 40px;
             font-size: 18px;
         }
-
         h2 {
             color: #00ccff;
             margin-top: 35px;
@@ -109,27 +111,10 @@
             border-left: 4px solid #00ccff;
             padding-left: 15px;
         }
-
-        p {
-            color: #aaa;
-            margin-bottom: 15px;
-            font-size: 16px;
-        }
-
-        ul {
-            margin-left: 20px;
-            margin-bottom: 20px;
-            color: #aaa;
-        }
-
-        li {
-            margin-bottom: 10px;
-        }
-
-        strong {
-            color: #fff;
-        }
-
+        p { color: #aaa; margin-bottom: 15px; font-size: 16px; }
+        ul { margin-left: 20px; margin-bottom: 20px; color: #aaa; }
+        li { margin-bottom: 10px; }
+        strong { color: #fff; }
         .highlight-box {
             background: rgba(0,204,255,0.05);
             border: 1px solid rgba(0,204,255,0.2);
@@ -137,25 +122,7 @@
             padding: 20px;
             margin: 30px 0;
         }
-
-        .highlight-box p {
-            margin: 0;
-            color: #00ccff;
-        }
-
-        .new-box {
-            background: rgba(255,215,0,0.05);
-            border: 1px solid rgba(255,215,0,0.2);
-            border-radius: 10px;
-            padding: 20px;
-            margin: 30px 0;
-        }
-
-        .new-box p {
-            margin: 0;
-            color: #ffd700;
-        }
-
+        .highlight-box p { margin: 0; color: #00ccff; }
         .data-item {
             background: rgba(255,255,255,0.02);
             border: 1px solid #222;
@@ -166,17 +133,10 @@
             align-items: center;
             gap: 15px;
         }
-
         .data-item::before {
             content: "📋";
             font-size: 24px;
         }
-
-        .data-item.new::before {
-            content: "🏆";
-            color: #ffd700;
-        }
-
         .last-updated {
             margin-top: 50px;
             padding-top: 30px;
@@ -185,7 +145,6 @@
             font-size: 14px;
             font-style: italic;
         }
-
         footer {
             text-align: center;
             padding: 50px 20px;
@@ -193,7 +152,6 @@
             border-top: 1px solid #333;
             margin-top: 80px;
         }
-
         .footer-links {
             margin: 25px 0;
             display: flex;
@@ -201,7 +159,6 @@
             gap: 20px;
             flex-wrap: wrap;
         }
-
         .footer-links a {
             color: #888;
             text-decoration: none;
@@ -211,41 +168,18 @@
             transition: all 0.3s;
             font-size: 14px;
         }
-
-        .footer-links a:hover {
+        .footer-links a:hover, .footer-links a.active {
             color: #00ccff;
             border-color: #00ccff;
             background: rgba(0,204,255,0.05);
         }
-
-        .footer-links a.active {
-            color: #00ccff;
-            border-color: #00ccff;
-        }
-
-        .copyright {
-            color: #444;
-            margin-top: 20px;
-            font-size: 14px;
-        }
-
-        .contact {
-            color: #666;
-            margin-top: 10px;
-            font-size: 14px;
-        }
-
-        .contact a {
-            color: #00ff88;
-            text-decoration: none;
-        }
-
+        .copyright { color: #444; margin-top: 20px; font-size: 14px; }
+        
         @media (max-width: 768px) {
-            header { padding: 15px 20px; }
+            header { padding: 15px 20px; flex-wrap: wrap; gap: 10px; }
             .container { margin: 30px auto; }
             .content-card { padding: 30px 20px; }
             h1 { font-size: 32px; }
-            h2 { font-size: 20px; }
         }
     </style>
 </head>
@@ -253,124 +187,81 @@
     <div class="bg-animation"></div>
 
     <header>
-        <a href="index.html" class="logo">Sickwell Music v4.7</a>
-        <a href="index.html" class="back-btn">← Назад на главную</a>
+        <a href="index.html" class="logo">Sickwell Music v4.7.5</a>
+        <nav>
+            <a href="index.html" class="back-btn">← Назад</a>
+            <div class="lang-switch">
+                <a href="privacy.html" class="active">RU</a>
+                <a href="privacy_en.html">EN</a>
+            </div>
+        </nav>
     </header>
 
     <div class="container">
         <div class="content-card">
             <h1>Политика конфиденциальности</h1>
-            <p class="subtitle">Мы не шпионим, мы просто играем музыку (и считаем ваши ачивки)</p>
+            <p class="subtitle">Мы не шпионим, мы просто играем музыку (и считаем ачивки)</p>
 
             <div class="highlight-box">
-                <p>Кратко: мы храним минимум данных, ничего не продаём, не следим за вами. Бот нужен для музыки и веселья, не для сбора инфы.</p>
+                <p>Кратко: минимум данных, ничего не продаём, не следим. Бот для музыки, не для сбора инфы.</p>
             </div>
 
-            <div class="new-box">
-                <p>🆕 <strong>Обновление v4.7:</strong> Теперь бот хранит статистику прослушиваний для системы достижений. Все данные локальные, обезличенные и используются только для ваших /stats и /top.</p>
-            </div>
-
-            <h2>Что мы собираем (и зачем)</h2>
+            <h2>Что собираем</h2>
             
             <div class="data-item">
                 <div>
-                    <strong style="color: #fff;">ID сервера Discord</strong><br>
-                    <span style="color: #888; font-size: 14px;">Чтобы знать, где какая очередь играет. Удаляется при перезапуске бота.</span>
+                    <strong style="color: #fff;">Discord ID сервера/пользователя</strong><br>
+                    <span style="color: #888; font-size: 14px;">Для очереди и статистики. Хранится как хэш, без email/телефона.</span>
                 </div>
             </div>
 
             <div class="data-item">
                 <div>
-                    <strong style="color: #fff;">ID канала и сообщения</strong><br>
-                    <span style="color: #888; font-size: 14px;">Чтобы обновлять панель управления (прогресс-бар, кнопки). Только для текущей сессии.</span>
+                    <strong style="color: #fff;">Статистика прослушиваний</strong><br>
+                    <span style="color: #888; font-size: 14px;">Количество треков, время, жанры (для ачивок). SQLite локально.</span>
                 </div>
             </div>
 
             <div class="data-item">
                 <div>
-                    <strong style="color: #fff;">История очереди (20 треков)</strong><br>
-                    <span style="color: #888; font-size: 14px;">Чтобы работали кнопки ⏮️ (предыдущий трек) и 📜 (история). Хранится в RAM, не в базе данных.</span>
+                    <strong style="color: #fff;">Настройки сервера</strong><br>
+                    <span style="color: #888; font-size: 14px;">Язык, автопилот on/off. Только для функционала бота.</span>
                 </div>
             </div>
 
-            <div class="data-item new">
-                <div>
-                    <strong style="color: #fff;">Статистика прослушиваний (v4.7+)</strong><br>
-                    <span style="color: #888; font-size: 14px;">Количество треков, общее время, жанры, достижения. Хранится в SQLite локально. Необходимо для работы /stats, /top, /globaltop и системы 30 достижений.</span>
-                </div>
-            </div>
-
-            <div class="data-item new">
-                <div>
-                    <strong style="color: #fff;">ID пользователя Discord (v4.7+)</strong><br>
-                    <span style="color: #888; font-size: 14px;">Для привязки статистики к вашему аккаунту. Хранится как хэш/ID, без email/телефона. Используется только для отображения ваших личных ачивок.</span>
-                </div>
-            </div>
-
-            <h2>Что мы НЕ собираем</h2>
+            <h2>Что НЕ собираем</h2>
             <ul>
-                <li>Email'ы, пароли, личные сообщения, номера телефонов</li>
-                <li>Историю прослушиваний за пределами статистики (конкретные треки не сохраняем)</li>
+                <li>Email, пароли, личные сообщения, телефоны</li>
                 <li>IP-адреса или геолокацию</li>
+                <li>Историю поиска (только временно для поиска)</li>
                 <li>Cookies (сайт статичный, без трекеров)</li>
-                <li>Запросы поиска (только временно для поиска, не сохраняем)</li>
             </ul>
 
-            <h2>SQLite База данных (v4.7)</h2>
-            <p>Начиная с версии 4.7, бот использует локальную базу данных SQLite для хранения:</p>
-            <ul>
-                <li><strong>user_stats:</strong> ваши треки, время, жанры, достижения, первый вход</li>
-                <li><strong>server_stats:</strong> активность по серверам (для /top)</li>
-                <li><strong>global_tracks:</strong> счётчики популярности треков (для /globaltop)</li>
-            </ul>
-            <p>База хранится локально на сервере бота, не в облаке, не передаётся третьим лицам. При удалении бота с сервера — серверная статистика удаляется, личная остаётся (привязана к вашему Discord ID).</p>
+            <h2>SQLite База данных</h2>
+            <p>Локальное хранилице: user_stats, server_stats, guild_settings (язык/автопилот). Не в облаке, не передаётся третьим лицам.</p>
 
-            <h2>DonationAlerts</h2>
-            <p>При донате через DonationAlerts мы видим:</p>
-            <ul>
-                <li>Ваше имя (как указано в платеже)</li>
-                <li>Сумму и сообщение (если написали)</li>
-                <li>Эти данные отображаются на сайте фонда и в Discord-канале</li>
-            </ul>
-            <p>Хотите анонимность? Укажите в сообщении доната "анонимно" или напишите нам — уберём из списка.</p>
-
-            <h2>Безопасность</h2>
-            <p>Токены и ключи API хранятся в защищённых переменных окружения (.env), не в коде. Код бота приватный, репозиторий публичный только для статики (сайт).</p>
-            <p>База SQLite защищена правами доступа файловой системы. Резервные копии делаются разработчиком локально, не в облачных сервисах.</p>
-
-            <h2>Ваши права (GDPR/CCPA и просто здравый смысл)</h2>
-            <p>Вы можете в любой момент:</p>
-            <ul>
-                <li>Удалить бота с сервера — все данные сервера тут же удалятся из памяти</li>
-                <li>Попросить удалить информацию о донате из публичного списка</li>
-                <li>Попросить полное удаление вашей статистики из базы данных (написав @jsickwell)</li>
-                <li>Узнать, какие данные есть о вас (хотя их почти нет)</li>
-            </ul>
+            <h2>Права пользователя</h2>
+            <p>Вы можете: удалить бота (данные сервера сразу стираются), запросить удаление статистики (писать @jsickwell), запросить анонимность доната.</p>
 
             <h2>Контакт</h2>
-            <p>По вопросам приватности и удаления данных:</p>
-            <p><strong>Telegram:</strong> <a href="https://t.me/jsickwell" style="color: #00ff88; text-decoration: none;">@jsickwell</a></p>
-            <p><strong>Discord:</strong> <a href="https://discord.gg/GPWX58cbEX" style="color: #00ff88; text-decoration: none;">discord.gg/GPWX58cbEX</a> (лс @sickwell)</p>
+            <p><strong>Telegram:</strong> <a href="https://t.me/jsickwell" style="color: #00ff88;">@jsickwell</a></p>
+            <p><strong>Discord:</strong> <a href="https://discord.gg/GPWX58cbEX" style="color: #00ff88;">discord.gg/GPWX58cbEX</a></p>
 
             <div class="last-updated">
-                Последнее обновление: 22 февраля 2026 г.<br>
-                Версия политики: 4.7 (Social Update)<br>
-                ЦНИ (Центр Нереализованных Идей) ценит вашу приватность.
+                Обновлено: 26 февраля 2026 г.<br>
+                Версия: 4.7.5 (Autopilot Update)
             </div>
         </div>
     </div>
 
     <footer>
         <p style="font-size: 20px; margin-bottom: 10px;">🎵 Sickwell Music Bot</p>
-        
         <div class="footer-links">
             <a href="index.html">Главная</a>
-            <a href="tos.html">Условия использования</a>
-            <a href="privacy.html" class="active">Политика конфиденциальности</a>
+            <a href="tos.html">Условия</a>
+            <a href="privacy.html" class="active">Приватность</a>
         </div>
-
-        <p class="contact">Контакт: <a href="https://t.me/jsickwell">t.me/jsickwell</a> (ЦНИ)</p>
-        <p class="copyright">© 2026 Sickwell Music Bot. Все права защищены.</p>
+        <p class="copyright">© 2026 ЦНИ</p>
     </footer>
 </body>
 </html>
