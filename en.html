@@ -1,0 +1,1527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sickwell Music Bot v4.7.5 | Autopilot Update — Listen & Compete</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Анимированный фон с частицами */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(45deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%);
+        }
+
+        .particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #00ff88;
+            border-radius: 50%;
+            animation: float 20s infinite linear;
+            opacity: 0.5;
+        }
+
+        @keyframes float {
+            from {
+                transform: translateY(100vh) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.5;
+            }
+            90% {
+                opacity: 0.5;
+            }
+            to {
+                transform: translateY(-100vh) translateX(100px);
+                opacity: 0;
+            }
+        }
+
+        /* Шапка */
+        header {
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid #333;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            background: linear-gradient(45deg, #00ff88, #00ccff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo::before {
+            content: "🎵";
+            font-size: 30px;
+            -webkit-text-fill-color: initial;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: #00ff88;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #00ff88;
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Переключатель языка */
+        .lang-switch {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid #333;
+            border-radius: 20px;
+            padding: 5px 10px;
+            font-size: 14px;
+            margin-left: 20px;
+        }
+
+        .lang-switch a {
+            color: #666;
+            text-decoration: none;
+            margin: 0 5px;
+            padding: 2px 8px;
+            border-radius: 12px;
+            transition: all 0.3s;
+        }
+
+        .lang-switch a.active {
+            color: #00ff88;
+            background: rgba(0,255,136,0.1);
+            font-weight: bold;
+        }
+
+        .lang-switch a:hover {
+            color: #00ff88;
+        }
+
+        /* Hero секция с талисманом */
+        .hero {
+            text-align: center;
+            padding: 100px 20px 150px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+
+        .hero-text {
+            flex: 1;
+            min-width: 300px;
+            max-width: 600px;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 72px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #fff 0%, #00ff88 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 20px rgba(0,255,136,0.3)); }
+            to { filter: drop-shadow(0 0 40px rgba(0,255,136,0.6)); }
+        }
+
+        .hero p {
+            font-size: 24px;
+            color: #888;
+            margin-bottom: 40px;
+            line-height: 1.5;
+        }
+
+        /* Стили для талисмана (чипсона) */
+        .hero-mascot {
+            flex: 0 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .mascot-container {
+            position: relative;
+            width: 350px;
+            height: 350px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .mascot-img {
+            width: 100%;
+            height: auto;
+            max-width: 350px;
+            animation: mascotFloat 6s ease-in-out infinite;
+            filter: drop-shadow(0 0 30px rgba(0,255,136,0.4));
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .mascot-img:hover {
+            transform: scale(1.05) rotate(3deg);
+            filter: drop-shadow(0 0 50px rgba(0,255,136,0.6));
+        }
+
+        /* Анимация плавающего дракончика */
+        @keyframes mascotFloat {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            25% {
+                transform: translateY(-15px) rotate(2deg);
+            }
+            50% {
+                transform: translateY(0) rotate(0deg);
+            }
+            75% {
+                transform: translateY(-10px) rotate(-2deg);
+            }
+        }
+
+        /* Музыкальные нотки вокруг талисмана */
+        .music-note {
+            position: absolute;
+            font-size: 24px;
+            opacity: 0;
+            animation: noteFloat 4s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .note-1 { top: 10%; left: 10%; animation-delay: 0s; }
+        .note-2 { top: 20%; right: 5%; animation-delay: 1.3s; }
+        .note-3 { bottom: 20%; left: 5%; animation-delay: 2.6s; }
+
+        @keyframes noteFloat {
+            0%, 100% {
+                opacity: 0;
+                transform: translateY(0) scale(0.5);
+            }
+            50% {
+                opacity: 0.8;
+                transform: translateY(-30px) scale(1) rotate(20deg);
+            }
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 20px 50px;
+            background: linear-gradient(45deg, #00ff88, #00cc6a);
+            color: #000;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 10px 30px rgba(0,255,136,0.3);
+            border: none;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0,255,136,0.5);
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            color: #00ff88;
+            border: 2px solid #00ff88;
+        }
+
+        .cta-button.secondary:hover {
+            background: rgba(0,255,136,0.1);
+        }
+
+        /* Счетчик фонда */
+        .fund-section {
+            background: rgba(255,255,255,0.03);
+            padding: 80px 20px;
+            text-align: center;
+            border-top: 1px solid #333;
+            border-bottom: 1px solid #333;
+        }
+
+        .fund-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .fund-title {
+            font-size: 36px;
+            margin-bottom: 30px;
+            color: #ffd700;
+        }
+
+        .thermometer-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 30px auto;
+        }
+
+        .thermometer {
+            width: 100%;
+            height: 60px;
+            background: #1a1a1a;
+            border-radius: 30px;
+            overflow: hidden;
+            position: relative;
+            border: 3px solid #333;
+            box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .thermometer-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #00ff88 0%, #00ccff 50%, #ffd700 100%);
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 20px;
+            font-weight: bold;
+            color: #000;
+            font-size: 18px;
+            transition: width 2s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .thermometer-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .thermometer-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            color: #666;
+            font-size: 14px;
+            padding: 0 10px;
+        }
+
+        .fund-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 40px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .stat-box {
+            background: rgba(0,0,0,0.5);
+            padding: 20px 40px;
+            border-radius: 15px;
+            border: 1px solid #333;
+            min-width: 150px;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: bold;
+            color: #00ff88;
+        }
+
+        .stat-label {
+            color: #666;
+            margin-top: 5px;
+            font-size: 14px;
+        }
+
+        /* Фичи */
+        .features {
+            padding: 100px 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 48px;
+            margin-bottom: 60px;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #00ff88, transparent);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid #333;
+            padding: 40px;
+            border-radius: 20px;
+            transition: transform 0.3s, border-color 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #00ff88, #00ccff);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: #00ff88;
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .feature-title {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .feature-desc {
+            color: #888;
+            line-height: 1.6;
+        }
+
+        rarity-tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+            margin: 2px;
+            font-family: monospace;
+        }
+
+        .rarity-micro { background: #2d5016; color: #a3e635; }
+        .rarity-small { background: #1e40af; color: #60a5fa; }
+        .rarity-medium { background: #7c3aed; color: #c4b5fd; }
+        .rarity-large { background: #dc2626; color: #fca5a5; }
+        .rarity-mega { background: #fbbf24; color: #92400e; }
+        .rarity-deep { background: #0891b2; color: #a5f3fc; }
+
+        /* Разворачиваемая секция достижений v4.7 */
+        .achievements-section {
+            padding: 60px 20px;
+            background: rgba(0,0,0,0.3);
+            border-top: 1px solid #333;
+            border-bottom: 1px solid #333;
+        }
+
+        .achievements-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .achievements-toggle {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid #333;
+            border-radius: 15px;
+            padding: 30px 40px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .achievements-toggle:hover {
+            border-color: #ffd700;
+            background: rgba(255,215,0,0.05);
+        }
+
+        .achievements-toggle-text {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .achievements-toggle-icon {
+            font-size: 48px;
+        }
+
+        .achievements-toggle-title {
+            font-size: 32px;
+            font-weight: bold;
+            color: #ffd700;
+        }
+
+        .achievements-toggle-subtitle {
+            font-size: 16px;
+            color: #888;
+            margin-top: 5px;
+        }
+
+        .achievements-arrow {
+            font-size: 32px;
+            color: #00ff88;
+            transition: transform 0.3s;
+        }
+
+        .achievements-toggle.active .achievements-arrow {
+            transform: rotate(180deg);
+        }
+
+        .achievements-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out, padding 0.3s;
+        }
+
+        .achievements-content.active {
+            max-height: 3000px;
+            padding-top: 40px;
+        }
+
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .achievement-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid #333;
+            padding: 20px;
+            border-radius: 12px;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .achievement-card:hover {
+            border-color: #ffd700;
+            transform: translateX(5px);
+            background: rgba(255,215,0,0.05);
+        }
+
+        .achievement-icon {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .achievement-name {
+            font-size: 16px;
+            font-weight: bold;
+            color: #ffd700;
+            margin-bottom: 4px;
+        }
+
+        .achievement-desc {
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 8px;
+        }
+
+        .achievement-reward {
+            font-size: 11px;
+            color: #00ff88;
+            font-family: monospace;
+        }
+
+        .achievement-category {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 10px;
+            padding: 3px 8px;
+            background: rgba(0,255,136,0.1);
+            color: #00ff88;
+            border-radius: 8px;
+            text-transform: uppercase;
+        }
+
+        /* Командная строка - v4.7 HYBRID COMMANDS */
+        .commands-section {
+            padding: 100px 20px;
+            background: rgba(0,0,0,0.3);
+        }
+
+        .terminal {
+            background: #0d0d0d;
+            border: 1px solid #333;
+            border-radius: 10px;
+            padding: 0;
+            margin: 40px auto;
+            max-width: 900px;
+            font-family: 'Courier New', monospace;
+            box-shadow: 0 0 50px rgba(0,255,136,0.1);
+            overflow: hidden;
+        }
+
+        .terminal-header {
+            display: flex;
+            gap: 10px;
+            padding: 15px 20px;
+            background: #1a1a1a;
+            border-bottom: 1px solid #333;
+        }
+
+        .terminal-btn {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .terminal-btn:nth-child(1) { background: #ff5f56; }
+        .terminal-btn:nth-child(2) { background: #ffbd2e; }
+        .terminal-btn:nth-child(3) { background: #27c93f; }
+
+        .terminal-body {
+            padding: 20px;
+            max-height: 700px;
+            overflow-y: auto;
+        }
+
+        .command-line {
+            color: #00ff88;
+            margin: 15px 0 5px 0;
+            font-weight: bold;
+        }
+
+        .command-line::before {
+            content: "discord:~$ ";
+            color: #666;
+        }
+
+        .slash-command {
+            color: #00ccff;
+            margin: 15px 0 5px 0;
+            font-weight: bold;
+        }
+
+        .slash-command::before {
+            content: "discord:~$ ";
+            color: #666;
+        }
+
+        .response {
+            color: #ccc;
+            margin-left: 20px;
+            margin-bottom: 15px;
+            line-height: 1.5;
+            border-left: 2px solid #333;
+            padding-left: 15px;
+        }
+
+        .cmd-syntax {
+            color: #ffd700;
+            background: rgba(255,215,0,0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+
+        .hybrid-badge {
+            display: inline-block;
+            background: linear-gradient(90deg, #00ff88, #00ccff);
+            color: #000;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: bold;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+
+        .new-badge {
+            display: inline-block;
+            background: #ffd700;
+            color: #000;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: bold;
+            margin-left: 8px;
+            vertical-align: middle;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        /* Футер */
+        footer {
+            text-align: center;
+            padding: 60px 20px;
+            background: #000;
+            border-top: 1px solid #333;
+        }
+
+        .social-links {
+            margin: 30px 0;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 12px 30px;
+            border: 1px solid #333;
+            border-radius: 30px;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            border-color: #00ff88;
+            color: #00ff88;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,255,136,0.2);
+        }
+
+        .social-links .telegram {
+            background: rgba(0,136,204,0.1);
+        }
+
+        .social-links .telegram:hover {
+            background: rgba(0,136,204,0.2);
+            border-color: #0088cc;
+            color: #0088cc;
+        }
+
+        .social-links .donate {
+            background: rgba(255,215,0,0.1);
+        }
+
+        .social-links .donate:hover {
+            background: rgba(255,215,0,0.2);
+            border-color: #ffd700;
+            color: #ffd700;
+        }
+
+        .copyright {
+            color: #444;
+            margin-top: 30px;
+            font-size: 14px;
+        }
+
+        .version {
+            color: #333;
+            font-size: 12px;
+            margin-top: 10px;
+            font-family: monospace;
+        }
+
+        .update-date {
+            color: #00ff88;
+            font-size: 12px;
+            margin-top: 5px;
+            opacity: 0.7;
+        }
+
+        /* Маленький талисман в шапке (опционально) */
+        .header-mascot {
+            display: none;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 968px) {
+            .hero-container {
+                flex-direction: column-reverse;
+                gap: 40px;
+            }
+            
+            .hero h1 { 
+                font-size: 48px; 
+            }
+            
+            .mascot-container {
+                width: 250px;
+                height: 250px;
+            }
+            
+            .mascot-img {
+                max-width: 250px;
+            }
+            
+            .achievements-toggle-title {
+                font-size: 24px;
+            }
+
+            .lang-switch {
+                margin-left: 10px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero { padding: 60px 20px 100px; }
+            .hero h1 { font-size: 36px; }
+            .hero p { font-size: 18px; }
+            nav { display: none; }
+            .features { padding: 50px 20px; }
+            .mascot-container { width: 200px; height: 200px; }
+            .mascot-img { max-width: 200px; }
+            
+            .achievements-toggle {
+                padding: 20px;
+            }
+            
+            .achievements-toggle-text {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation">
+        <div class="particles" id="particles"></div>
+    </div>
+
+    <header>
+        <div class="logo">Sickwell Music v4.7.5</div>
+        <nav>
+            <a href="#features">Features</a>
+            <a href="#achievements">Achievements</a>
+            <a href="#commands">Commands</a>
+            <a href="#fund">Fund</a>
+            <a href="https://discord.gg/GPWX58cbEX" target="_blank">Support</a>
+            
+            <div class="lang-switch">
+                <a href="index.html">RU</a>
+                <a href="en.html" class="active">EN</a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-text">
+                <h1>Listen & Compete</h1>
+                <p>Discord bot with achievements system, stats and leaderboards. 30 awards from "First Steps" to "Audiophile". Hybrid commands and smart random with 7 rarity filters.</p>
+                <div>
+                    <a href="https://discord.com/oauth2/authorize?client_id=1470582581526528183&permissions=8&integration_type=0&scope=applications.commands+bot" class="cta-button" target="_blank">
+                        ➕ Add to Server
+                    </a>
+                    <a href="https://t.me/jsickwell" class="cta-button secondary" target="_blank">
+                        💬 Contact Dev
+                    </a>
+                </div>
+                <p style="margin-top: 30px; font-size: 14px; color: #555;">
+                    Sickwell_music_bot v4.7.5 Autopilot Update • 30 Achievements • Global Top • 24/7
+                </p>
+            </div>
+            
+            <!-- Талисман (чипсона) -->
+            <div class="hero-mascot">
+                <div class="mascot-container">
+                    <img src="music.png" alt="Sickwell Music Bot Mascot" class="mascot-img" title="Hi! I'm Chipson, the bot mascot 🎵">
+                    <!-- Декоративные нотки -->
+                    <span class="music-note note-1">🎵</span>
+                    <span class="music-note note-2">🎶</span>
+                    <span class="music-note note-3">🎧</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="fund-section" id="fund">
+        <div class="fund-container">
+            <h2 class="fund-title">💰 Server Fund: Raspberry Pi 5</h2>
+            <p style="color: #888; margin-bottom: 30px; max-width: 500px; margin-left: auto; margin-right: auto;">
+                Help the bot move to dedicated hardware. Donate 100₽ = your tag in random track generator!
+            </p>
+            
+            <div class="thermometer-container">
+                <div class="thermometer">
+                    <div class="thermometer-fill" id="fundProgress">0%</div>
+                </div>
+                <div class="thermometer-labels">
+                    <span>0₽</span>
+                    <span>Goal: 20,000₽</span>
+                </div>
+            </div>
+            
+            <div class="fund-stats">
+                <div class="stat-box">
+                    <div class="stat-value" id="currentAmount">0₽</div>
+                    <div class="stat-label">Raised</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="goalAmount">20,000₽</div>
+                    <div class="stat-label">Goal (Raspberry Pi 5)</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="remainingAmount">0₽</div>
+                    <div class="stat-label">Remaining</div>
+                </div>
+            </div>
+            
+            <a href="https://www.donationalerts.com/r/jsickwell" target="_blank" class="cta-button" style="margin-top: 40px;">
+                💳 Donate & Add Tag
+            </a>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <h2 class="section-title">What's New in v4.7.5?</h2>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🤖</div>
+                <h3 class="feature-title">Autopilot Mode</h3>
+                <p class="feature-desc">When queue ends, bot automatically adds 2-5 similar tracks after 30s delay. Analyzes last 3 tracks from history to match genre and style. Never stop the music!</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🏆</div>
+                <h3 class="feature-title">30 Achievements</h3>
+                <p class="feature-desc">Reward system for activity: listen to music, collect unique genres, use random and get achievements from "First Steps" to "Couch Expert" (500h listening time).</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3 class="feature-title">Personal Stats</h3>
+                <p class="feature-desc">Command /stats shows: tracks played, total listening time, top-5 favorite genres, achievement progress and how much left to next reward.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🌐</div>
+                <h3 class="feature-title">Global Top</h3>
+                <p class="feature-desc">See what's playing on all servers. Global track chart (/globaltop) and server user leaderboard (/top) by tracks added and listening time.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">👁️</div>
+                <h3 class="feature-title">7 Rarity Levels</h3>
+                <p class="feature-desc" style="font-size: 13px; line-height: 1.8;">
+                    <span class="rarity-tag rarity-micro">micro</span> 1K-50K (Underground)<br>
+                    <span class="rarity-tag rarity-small">small</span> 50K-250K (Growing)<br>
+                    <span class="rarity-tag rarity-medium">medium</span> 250K-1M (Medium)<br>
+                    <span class="rarity-tag rarity-large">large</span> 1M-100M (Popular)<br>
+                    <span class="rarity-tag rarity-mega">mega</span> 100M+ (Viral)<br>
+                    <span class="rarity-tag rarity-deep">deep</span> 1K-500K (Deep classic)<br>
+                    <code style="color: #00ff88;">!random micro</code> or <code style="color: #00ccff;">/random rarity:micro</code>
+                </p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3 class="feature-title">Hybrid Commands</h3>
+                <p class="feature-desc">All commands work as both <code style="color: #ffd700;">!play</code> and <code style="color: #ffd700;">/play</code>. Choose your preferred format. Slash commands with autocomplete parameters.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🌍</div>
+                <h3 class="feature-title">Multilingual</h3>
+                <p class="feature-desc">Bot auto-detects server language (RU/EN). Manual switch: /language or !language. All commands, responses and achievements fully translated.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🎲</div>
+                <h3 class="feature-title">Smart Random v4.7</h3>
+                <p class="feature-desc">Combines base tags with year, style and mood modifiers. Anti-random filter blocks karaoke and instrumentals. Doesn't repeat last 20 genres.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Разворачиваемая секция достижений v4.7 -->
+    <section class="achievements-section" id="achievements">
+        <div class="achievements-container">
+            <div class="achievements-toggle" onclick="toggleAchievements()">
+                <div class="achievements-toggle-text">
+                    <div class="achievements-toggle-icon">🏆</div>
+                    <div>
+                        <div class="achievements-toggle-title">Achievement System <span class="new-badge">v4.7</span></div>
+                        <div class="achievements-toggle-subtitle">Click to see all 30 awards • Expand to view</div>
+                    </div>
+                </div>
+                <div class="achievements-arrow">▼</div>
+            </div>
+            
+            <div class="achievements-content" id="achievementsContent">
+                <div class="achievements-grid">
+                    <!-- Общая активность -->
+                    <div class="achievement-card">
+                        <span class="achievement-category">Activity</span>
+                        <div class="achievement-icon">👣</div>
+                        <div class="achievement-name">First Steps</div>
+                        <div class="achievement-desc">Play your first track</div>
+                        <div class="achievement-reward">Reward: Novice Music Lover</div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <span class="achievement-category">Activity</span>
+                        <div class="achievement-icon">🎵</div>
+                        <div class="achievement-name">The Ten</div>
+                        <div class="achievement-desc">Play 10 tracks</div>
+                        <div class="achievement-reward">Reward: +1 Reputation</div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <span class="achievement-category">Activity</span>
+                        <div class="achievement-icon">💯</div>
+                        <div class="achievement-name">The Hundred</div>
+                        <div class="achievement-desc">Play 100 tracks</div>
+                        <div class="achievement-reward">Reward: Music Enthusiast</div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <span class="achievement-category">Activity</span>
+                        <div class="achievement-icon">🔥</div>
+                        <div class="achievement-name">The Five Hundred</div>
+                        <div class="achievement-desc">Play 500 tracks</div>
+                        <div class="achievement-reward">Reward: Regular</div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <span class="achievement-category">Activity</span>
+                        <div class="achievement-icon">🎧</div>
+                        <div class="achievement-name">Music Addict</div>
+                        <div class="achievement-desc">Play 1000 tracks</div>
+                        <div class="achievement-reward">Reward: Server Legend</div>
+                    </div>
+
+                    <!-- Время -->
+                    <div class="achievement-card">
+                        <span class="achievement-category">Time</span>
+                        <div class="achievement-icon">☕</div>
+                        <div class="achievement-name">Tea Time</div>
+                        <div class="achievement-desc">1 hour of listening</div>
+                        <div class="achievement-reward">Reward: Coffee Break</div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <span class="achievement-category">Time</span>
+                        <div class="achievement-icon">🚶</div>
+                        <div class="achievement-name">AFK</div>
+                        <div class="achievement-desc">10 hours of listening</div>
+                        <div class="achievement-reward">Reward: AFK Master</div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <span class="achievement-category">Time</span>
+                        <div class="achievement-icon">🌙</div>
+                        <div class="achievement-name">All Nighter</div>
+                        <div class="achievement-desc">24 hours of music</div>
+                        <div class="achievement-reward">Reward: Insomnia</div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <span class="achievement-category">Time</span>
+                        <div class="achievement-icon">🎶</div>
+                        <div class="achievement-name">Music Lover</div>
+                        <div class="achievement-desc">100 hours of listening</div>
+                        <div class="achievement-reward">Reward: Honored Listener</div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <span class="achievement-category">Time</span>
+                        <div class="achievement-icon">🛋️</div>
+                        <div class="achievement-name">Couch Expert</div>
+                        <div class="achievement-desc">500 hours of listening</div>
+                        <div class="achievement-reward">Reward: Do You Live in Discord?</div>
+                    </div>
+
+                    <!-- Рандом -->
+                    <div class="achievement-card">
+                        <span class="achievement-category">Random</span>
+                        <div class="achievement-icon">🎲</div>
+                        <div class="achievement-name">Randomizer</div>
+                        <div class="achievement-desc">Add 50 tracks via !random</div>
+                        <div class="achievement-reward">Reward: Surprise Lover</div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <span class="achievement-category">Random</span>
+                        <div class="achievement-icon">🎰</div>
+                        <div class="achievement-name">Gambler</div>
+                        <div class="achievement-desc">Add 200 tracks via !random</div>
+                        <div class="achievement-reward">Reward: Risk Taker</div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <span class="achievement-category">Random</span>
+                        <div class="achievement-icon">💎</div>
+                        <div class="achievement-name">Pearl Hunter</div>
+                        <div class="achievement-desc">25 tracks rarity:micro</div>
+                        <div class="achievement-reward">Reward: Treasure Hunter</div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <span class="achievement-category">Random</span>
+                        <div class="achievement-icon">🌿</div>
+                        <div class="achievement-name">Underground</div>
+                        <div class="achievement-desc">100 tracks rarity:deep</div>
+                        <div class="achievement-reward">Reward: Hipster</div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <span class="achievement-category">Random</span>
+                        <div class="achievement-icon">⭐</div>
+                        <div class="achievement-name">Hype Beast</div>
+                        <div class="achievement-desc">10 tracks rarity:mega</div>
+                        <div class="achievement-reward">Reward: Mainstream Fan</div>
+                    </div>
+
+                    <!-- Жанры -->
+                    <div class="achievement-card">
+                        <span class="achievement-category">Genres</span>
+                        <div class="achievement-icon">🎭</div>
+                        <div class="achievement-name">Eclectic</div>
+                        <div class="achievement-desc">Listen to 10 different genres</div>
+                        <div class="achievement-reward">Reward: Versatile Personality</div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <span class="achievement-category">Genres</span>
+                        <div class="achievement-icon">🏔️</div>
+                        <div class="achievement-name">Genre Conqueror</div>
+                        <div class="achievement-desc">Listen to 25 different genres</div>
+                        <div class="achievement-reward">Reward: Music Critic</div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <span class="achievement-category">Genres</span>
+                        <div class="achievement-icon">🚗</div>
+                        <div class="achievement-name">Phonker</div>
+                        <div class="achievement-desc">50 tracks in phonk genre</div>
+                        <div class="achievement-reward">Reward: Drift King</div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <span class="achievement-category">Genres</span>
+                        <div class="achievement-icon">🎸</div>
+                        <div class="achievement-name">Rock Star</div>
+                        <div class="achievement-desc">50 rock/metal tracks</div>
+                        <div class="achievement-reward">Reward: Guitar Hero</div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <span class="achievement-category">Genres</span>
+                        <div class="achievement-icon">🔊</div>
+                        <div class="achievement-name">Basshead</div>
+                        <div class="achievement-desc">50 electronic/dnb tracks</div>
+                        <div class="achievement-reward">Reward: Bass to the Max</div>
+                    </div>
+
+                    <!-- Техническое -->
+                    <div class="achievement-card">
+                        <span class="achievement-category">Technical</span>
+                        <div class="achievement-icon">📀</div>
+                        <div class="achievement-name">DJ</div>
+                        <div class="achievement-desc">Add 100 tracks manually</div>
+                        <div class="achievement-reward">Reward: Party Host</div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <span class="achievement-category">Technical</span>
+                        <div class="achievement-icon">🦉</div>
+                        <div class="achievement-name">Night Owl</div>
+                        <div class="achievement-desc">50 tracks at night (00:00-06:00)</div>
+                        <div class="achievement-reward">Reward: Night Guardian</div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <span class="achievement-category">Technical</span>
+                        <div class="achievement-icon">🔘</div>
+                        <div class="achievement-name">Button Masher</div>
+                        <div class="achievement-desc">100 control panel button clicks</div>
+                        <div class="achievement-reward">Reward: Clicker</div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <span class="achievement-category">Technical</span>
+                        <div class="achievement-icon">📋</div>
+                        <div class="achievement-name">Organizer</div>
+                        <div class="achievement-desc">20 shuffle/remove operations</div>
+                        <div class="achievement-reward">Reward: Queue in Order</div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <span class="achievement-category">Technical</span>
+                        <div class="achievement-icon">🔄</div>
+                        <div class="achievement-name">Looped</div>
+                        <div class="achievement-desc">Enable loop 50 times</div>
+                        <div class="achievement-reward">Reward: Repeat After Me</div>
+                    </div>
+
+                    <!-- Особые -->
+                    <div class="achievement-card">
+                        <span class="achievement-category">Special</span>
+                        <div class="achievement-icon">💚</div>
+                        <div class="achievement-name">Philanthropist</div>
+                        <div class="achievement-desc">Donate to server fund</div>
+                        <div class="achievement-reward">Reward: Sponsor</div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <span class="achievement-category">Special</span>
+                        <div class="achievement-icon">🐦</div>
+                        <div class="achievement-name">Early Bird</div>
+                        <div class="achievement-desc">Among first users (before 01.03.2026)</div>
+                        <div class="achievement-reward">Reward: Old School</div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <span class="achievement-category">Special</span>
+                        <div class="achievement-icon">🏃</div>
+                        <div class="achievement-name">Marathoner</div>
+                        <div class="achievement-desc">4 hours continuous listening</div>
+                        <div class="achievement-reward">Reward: Endurance</div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <span class="achievement-category">Special</span>
+                        <div class="achievement-icon">📚</div>
+                        <div class="achievement-name">Collector</div>
+                        <div class="achievement-desc">Listen to tracks from 15+ genres</div>
+                        <div class="achievement-reward">Reward: Museum Exhibit</div>
+                    </div>
+                    
+                    <div class="achievement-card">
+                        <span class="achievement-category">Special</span>
+                        <div class="achievement-icon">🍀</div>
+                        <div class="achievement-name">Lucky One</div>
+                        <div class="achievement-desc">0.1% chance on each track</div>
+                        <div class="achievement-reward">Reward: Lottery Ticket</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="commands-section" id="commands">
+        <h2 class="section-title">Commands v4.7.5 <span class="hybrid-badge">HYBRID</span></h2>
+        
+        <div class="terminal">
+            <div class="terminal-header">
+                <div class="terminal-btn"></div>
+                <div class="terminal-btn"></div>
+                <div class="terminal-btn"></div>
+                <span style="color: #666; margin-left: 10px; font-family: sans-serif; font-size: 14px;">Terminal - v4.7.5 Autopilot Update Commands</span>
+            </div>
+            
+            <div class="terminal-body">
+                <div class="command-line">!start</div>
+                <div class="slash-command">/start</div>
+                <div class="response">Connects bot to voice channel and shows control panel with buttons</div>
+
+                <div class="command-line">!play [query or link]</div>
+                <div class="slash-command">/play query:[query]</div>
+                <div class="response">Searches YouTube and adds to queue. Example: !play phonk 2024 or /play query:phonk 2024</div>
+
+                <div class="command-line">!stats</div>
+                <div class="slash-command">/stats</div>
+                <div class="response">
+                    Shows personal statistics:<br>
+                    • Tracks played: 1337<br>
+                    • Listening time: 42h 15min<br>
+                    • Top genres: phonk (25%), rock (20%), electronic (15%)<br>
+                    • Achievements unlocked: 12/30<br>
+                    • Next achievement: Music Lover (8h left)
+                </div>
+
+                <div class="command-line">!top</div>
+                <div class="slash-command">/top</div>
+                <div class="response">
+                    Server user leaderboard:<br>
+                    🥇 @user1 — 245 tracks (68h)<br>
+                    🥈 @user2 — 189 tracks (45h)<br>
+                    🥉 @user3 — 156 tracks (38h)<br>
+                    Your position: #5 (89 tracks, 22h)
+                </div>
+
+                <div class="command-line">!globaltop</div>
+                <div class="slash-command">/globaltop</div>
+                <div class="response">
+                    Global chart of popular tracks:<br>
+                    1. Artist - Track Name (152 plays)<br>
+                    2. Another - Song (128 plays)<br>
+                    3. Phonk - Brazil (98 plays)<br>
+                    ...across all servers with the bot
+                </div>
+
+                <div class="command-line">!autopilot [on/off/status]</div>
+                <div class="slash-command">/autopilot mode:[on/off/status] <span class="new-badge">ADMIN</span></div>
+                <div class="response">
+                    Toggle autopilot mode (admin only):<br>
+                    • on — Bot auto-adds tracks when queue ends (30s delay)<br>
+                    • off — Manual queue management<br>
+                    • status — Check current setting<br>
+                    Analyzes last 3 tracks to match genre/style
+                </div>
+
+                <div class="command-line">!language [ru/en]</div>
+                <div class="slash-command">/language lang:[ru/en]</div>
+                <div class="response">Change bot language. Affects all responses, achievements and commands.</div>
+
+                <div class="command-line">!random [rarity]</div>
+                <div class="slash-command">/random rarity:[micro/small/medium/large/mega/deep/any]</div>
+                <div class="response">
+                    Adds random track by view filter:<br>
+                    • <span class="rarity-tag rarity-micro">micro</span> 1K-50K (Underground)<br>
+                    • <span class="rarity-tag rarity-small">small</span> 50K-250K (Growing)<br>
+                    • <span class="rarity-tag rarity-medium">medium</span> 250K-1M<br>
+                    • <span class="rarity-tag rarity-large">large</span> 1M-100M (Popular)<br>
+                    • <span class="rarity-tag rarity-mega">mega</span> 100M+ (Viral)<br>
+                    • <span class="rarity-tag rarity-deep">deep</span> 1K-500K (classic)<br>
+                    • any — any views (default)
+                </div>
+
+                <div class="command-line">!addrandom [amount] [rarity]</div>
+                <div class="slash-command">/addrandom count:[N] rarity:[rarity]</div>
+                <div class="response">Adds multiple random tracks. Example: !addrandom 5 micro or /addrandom count:5 rarity:micro</div>
+
+                <div class="command-line">!queue</div>
+                <div class="slash-command">/queue</div>
+                <div class="response">Shows current queue with live progress bar for playing track, history and control buttons (multi-remove up to 10 tracks)</div>
+
+                <div class="command-line">!search [query]</div>
+                <div class="slash-command">/search query:[query]</div>
+                <div class="response">Searches YouTube for 5 options, lets you choose by number (1-5)</div>
+
+                <div class="command-line">!skip / !previous</div>
+                <div class="slash-command">/skip | /previous</div>
+                <div class="response">Skips current track or returns previous from history (20 last tracks)</div>
+
+                <div class="command-line">!loop [off/one/all]</div>
+                <div class="slash-command">/loop mode:[off/one/all]</div>
+                <div class="response">
+                    Loop mode:<br>
+                    • one — repeat current track<br>
+                    • all — repeat entire queue<br>
+                    • off — disabled (default)
+                </div>
+
+                <div class="command-line">!shuffle</div>
+                <div class="slash-command">/shuffle</div>
+                <div class="response">Shuffles queue in random order</div>
+
+                <div class="command-line">!remove [number]</div>
+                <div class="slash-command">/remove position:[number]</div>
+                <div class="response">Removes track from queue by position. For multi-remove use 🗑️ button in queue panel (up to 10 tracks)</div>
+
+                <div class="command-line">!fund</div>
+                <div class="slash-command">/fund</div>
+                <div class="response">Shows Raspberry Pi fund status: progress bar, raised amount, top donors. Donate 100₽ = your tag in random!</div>
+
+                <div class="command-line">!pause / !resume / !stop</div>
+                <div class="slash-command">/pause | /resume | /stop</div>
+                <div class="response">Basic controls: pause, resume, full stop and disconnect</div>
+            </div>
+        </div>
+    </section>
+
+<footer>
+    <p style="font-size: 24px; margin-bottom: 10px;">🎵 Sickwell Music Bot</p>
+    <p style="color: #666;">Made with passion by 
+    <a href="https://t.me/jsickwell" target="_blank" 
+       style="color: #666; text-decoration: none; transition: color 0.3s;" 
+       onmouseover="this.style.color='#00ff88'" 
+       onmouseout="this.style.color='#666'">
+        <strong style="color: #00ff88;">CUI</strong> (Center of Unrealized Ideas)
+    </a>
+</p>
+    
+    <!-- Навигационные ссылки -->
+    <div style="margin: 25px 0; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+        <a href="en.html" style="color: #00ff88; text-decoration: none; padding: 8px 16px; border: 1px solid #00ff88; border-radius: 20px; transition: all 0.3s; font-size: 14px;">Home</a>
+        <a href="tos_en.html" style="color: #888; text-decoration: none; padding: 8px 16px; border: 1px solid #333; border-radius: 20px; transition: all 0.3s; font-size: 14px;">Terms of Service</a>
+        <a href="privacy_en.html" style="color: #888; text-decoration: none; padding: 8px 16px; border: 1px solid #333; border-radius: 20px; transition: all 0.3s; font-size: 14px;">Privacy Policy</a>
+    </div>
+    
+    <div class="social-links">
+        <a href="https://discord.gg/GPWX58cbEX" target="_blank" class="discord" title="Join Discord Server">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+            </svg>
+            Join Discord
+        </a>
+        
+        <a href="https://www.donationalerts.com/r/jsickwell" target="_blank" class="donate" title="Support Project">
+            💰 Support on DonationAlerts
+        </a>
+    </div>
+
+    <p class="copyright">© 2026 Sickwell Music Bot. All rights reserved.</p>
+    <p class="copyright" style="margin-top: 5px; font-size: 12px;">Contact: <a href="https://discord.gg/GPWX58cbEX" style="color: #5865F2; text-decoration: none;">discord.gg/GPWX58cbEX</a> </p>
+    <p class="version">v4.7.5 (Autopilot Update) • Discord • Sickwell_music</p>
+    <p class="update-date">Updated: 26.02.2026</p>
+</footer>
+
+    <script>
+        // ==========================================
+        // FUND CONFIG - CHANGE ONLY HERE
+        // ==========================================
+        const FUND_CONFIG = {
+            GOAL: 20000,      // Goal in rubles
+            CURRENT: 300      // <<< CHANGE ONLY THIS NUMBER
+        };
+        // ==========================================
+        // Everything else updates automatically
+
+        // Генерация частиц
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 20 + 's';
+            particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        // Плавная прокрутка
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Разворачивание достижений
+        function toggleAchievements() {
+            const toggle = document.querySelector('.achievements-toggle');
+            const content = document.getElementById('achievementsContent');
+            
+            toggle.classList.toggle('active');
+            content.classList.toggle('active');
+        }
+
+        // Расчет и отображение фонда
+        function updateFund() {
+            const percent = Math.min(Math.round((FUND_CONFIG.CURRENT / FUND_CONFIG.GOAL) * 100), 100);
+            const remaining = Math.max(FUND_CONFIG.GOAL - FUND_CONFIG.CURRENT, 0);
+            
+            // Обновляем цифры
+            document.getElementById('currentAmount').textContent = FUND_CONFIG.CURRENT.toLocaleString('en-US') + '₽';
+            document.getElementById('remainingAmount').textContent = remaining.toLocaleString('en-US') + '₽';
+            document.getElementById('fundProgress').textContent = percent + '%';
+            
+            // Анимация полоски
+            setTimeout(() => {
+                document.getElementById('fundProgress').style.width = percent + '%';
+            }, 500);
+        }
+
+        // Запускаем при загрузке
+        window.addEventListener('load', updateFund);
+
+        // Сохранение языка
+        document.querySelector('.lang-switch a[href="en.html"]').addEventListener('click', function() {
+            localStorage.setItem('lang', 'en');
+        });
+    </script>
+</body>
+</html>
